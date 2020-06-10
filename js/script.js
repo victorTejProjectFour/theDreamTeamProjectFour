@@ -1,28 +1,49 @@
 // namespacing
 const triviaApp = {};
 
-triviaApp.getTriviaUrl = () => {
+triviaApp.apiQuestionUrl = 'https://opentdb.com/api.php';
+triviaApp.apiCatUrl = 'https://opentdb.com/api_category.php';
+
+triviaApp.getTriviaUrl = function(userCategory,userDifficulty) {
     $.ajax({
-        url: 'https://opentdb.com/api.php',
+        url: triviaApp.apiQuestionUrl,
         method: 'GET',
         datatype: 'json',
         data: {
-            amount: '20',
-            category: '9',
-            difficulty: 'easy'
+            amount: '1',
+            /* 20 */
+            category: userCategory,
+            /* easy */
+            difficulty: userDifficulty,
+            type: 'multiple'
         }
     }).then((res) => {
         console.log(res);
     })
 }
 
-triviaApp.getAnotherUrl = () => {
-
+triviaApp.getCatNameUrl = function(){
+    $.ajax({
+        url: triviaApp.apiCatUrl,
+        method: 'GET',
+        datatype: 'json',
+    }).then(function(res){
+        console.log(res);
+    })
 }
 
 
+/* triviaApp.getAnotherUrl = () => {
+    $.ajax({
+        url: ''
+
+    })
+} */
+
+
 triviaApp.init = () => {
-    triviaApp.getTriviaUrl();
-    triviaApp.getAnotherUrl();
+    triviaApp.getTriviaUrl(20,'easy');
+    triviaApp.getTriviaUrl(9,'easy');
+/*     triviaApp.getAnotherUrl(); */
 }
 $(document).ready(triviaApp.init());
