@@ -1,0 +1,17 @@
+#Pseudo Code
+/*
+* A welcome page and have a start button
+
+* When user click the start button, it will lead the page to menu
+* Once user select (click) one of the question, it will lead to question page
+
+* In question page, user will need to answer a multiple choice question
+
+* update score variable if the answer is right or wrong and bring user back to menu page
+
+* repeat the process until all questions being answered
+
+* After answer all the question, it will display total score to the user
+
+*/
+

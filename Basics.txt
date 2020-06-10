@@ -1,0 +1,23 @@
+MVP:
+Welcome page and start button
+Proper & data extracting from API ,to generate questions and answer
+Show total score and result
+
+
+Stretch Goals:
+Add a dark theme
+Add Timer
+Add Three helpers
+
+Create a trivial question game inspired by jeopardy who wants to be a millionaire and are you smarter than a 5th grader
+
+
+// namespacing
+// Create a getQuestions that will get data from trivia API using an ajax call .
+// Create a getCategory which will get categories in the trivia API
+// Create a function that will check if user click the Let's Begin Button 
+// Create a Display Catgory Page
+// Create a Display Question Page 
+// Create a Display Results Page
+// Create an init fuction
+// Create a doc ready that calls init
