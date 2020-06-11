@@ -34,20 +34,33 @@ triviaApp.getCatNameUrl = function () {
 }
 
 triviaApp.CataArray = function (catName) {
-    const x = [];
-    let loop = 3;
-    while (loop > 0) {
-        let index = Math.floor(Math.random() * (catName.length - 1));
-        if (x.includes(catName[index])) {
-            index = Math.floor(Math.random() * (catName.length - 1));
-        } else {
-            x.push(catName[index]);
-            loop--;
-        }
-    }
-    return x;
+    const categoryTitle = [];
+    do {
+        categoryTitle[categoryTitle.length] = catName.splice(Math.floor(Math.random() * catName.length), 1)[0];
+    } while (categoryTitle.length < 3)
+    return categoryTitle;
 }
 
+// Create a Function that will have a parameter of an obj 
+triviaApp.displayQuestions = function (obj) {
+    console.log(obj);
+    const choices = [...obj.incorrect_answers];
+    let answerRandomIndex = Math.floor(Math.random() * (4 - 1)) + 1;
+    // console.log(answerRandomIndex);
+    choices.splice(answerRandomIndex - 1, 0, obj.correct_answer);
+    // console.log(choices);
+    $('.questionSection').html(`
+        <h2>${obj.question}<h2>
+    `)
+    choices.forEach((choice, index) => {
+        $(`.questionSection`).append(`<p>${choice}</p>`)
+    })
+}
+
+// Create a function that displays the Categories
+triviaApp.displayCategories = function () {
+
+}
 
 
 
@@ -56,7 +69,7 @@ triviaApp.init = () => {
         triviaApp.getTriviaUrl(9,'easy'); */
     triviaApp.getCatNameUrl();
     triviaApp.getTriviaUrl(9, 'easy').then(function (result) {
-        console.log(result);
+        triviaApp.displayQuestions(result.results[0]);
     })
     /*     triviaApp.CataArray(asd);
         console.log(triviaApp.CataArray(asd)); */
