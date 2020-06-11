@@ -4,8 +4,9 @@ const triviaApp = {};
 triviaApp.apiQuestionUrl = 'https://opentdb.com/api.php';
 triviaApp.apiCatUrl = 'https://opentdb.com/api_category.php';
 
-triviaApp.getTriviaUrl = function(userCategory,userDifficulty) {
-    $.ajax({
+
+triviaApp.getTriviaUrl = function (userCategory, userDifficulty) {
+    const questionObj = $.ajax({
         url: triviaApp.apiQuestionUrl,
         method: 'GET',
         datatype: 'json',
@@ -17,58 +18,48 @@ triviaApp.getTriviaUrl = function(userCategory,userDifficulty) {
             difficulty: userDifficulty,
             type: 'multiple'
         }
-    }).then((res) => {
-        console.log(res);
     })
+    return questionObj;
 }
 
-triviaApp.getCatNameUrl = function(){
+triviaApp.getCatNameUrl = function () {
     $.ajax({
         url: triviaApp.apiCatUrl,
         method: 'GET',
         datatype: 'json',
-    }).then(function(res){
+    }).then(function (res) {
         console.log(triviaApp.CataArray(res.trivia_categories));
-        console.log(res.trivia_categories);
+        // console.log(res.trivia_categories);
     })
 }
 
-const asd = ['1','2','3','4','5','6','7'];
-
-
-triviaApp.CataArray = function(catName){
+triviaApp.CataArray = function (catName) {
     const x = [];
-    
     let loop = 3;
-    while(loop > 0){
+    while (loop > 0) {
         let index = Math.floor(Math.random() * (catName.length - 1));
-        console.log(x[name] == catName[name]);
-        /* Ex. 0 to 2 */
-        /* console.log(Index); */
-        if (x.includes(index)){
+        if (x.includes(catName[index])) {
             index = Math.floor(Math.random() * (catName.length - 1));
-        }else{
+        } else {
             x.push(catName[index]);
             loop--;
         }
-       /*  if (x.includes */
     }
     return x;
 }
-/* triviaApp.getAnotherUrl = () => {
-    $.ajax({
-        url: ''
 
-    })
-} */
+
 
 
 triviaApp.init = () => {
-/*     triviaApp.getTriviaUrl(20,'easy');
-    triviaApp.getTriviaUrl(9,'easy'); */
+    /*     triviaApp.getTriviaUrl(20,'easy');
+        triviaApp.getTriviaUrl(9,'easy'); */
     triviaApp.getCatNameUrl();
-/*     triviaApp.CataArray(asd);
-    console.log(triviaApp.CataArray(asd)); */
-/*     triviaApp.getAnotherUrl(); */
+    triviaApp.getTriviaUrl(9, 'easy').then(function (result) {
+        console.log(result);
+    })
+    /*     triviaApp.CataArray(asd);
+        console.log(triviaApp.CataArray(asd)); */
+    /*     triviaApp.getAnotherUrl(); */
 }
 $(document).ready(triviaApp.init());
