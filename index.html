@@ -12,11 +12,30 @@
     <header class="wrapper">
         <h1>Question Impossible</h1>
         <p>You are the chosen one, answer all the questions and be a millionaire</p>
-        <button type="submit">Let's begin</button>
+        <button class="gameStart" type="submit">Let's begin</button>
     </header>
     <main class="wrapper">
-        <section class="categorySection"></section>
-        <section class="questionSection"></section>
+        <section class="categorySection">
+            <h2 class="categoryName"></h2>
+            <div class="questionButtons">
+                <button type="submit" class="jQuestion" data-index="1">100</button>
+                <button type="submit" class="jQuestion" data-index="2">100</button>
+                <button type="submit" class="jQuestion" data-index="3">100</button>
+                <button type="submit" class="jQuestion" data-index="4">200</button>
+                <button type="submit" class="jQuestion" data-index="5">200</button>
+                <button type="submit" class="jQuestion" data-index="6">200</button>
+                <button type="submit" class="jQuestion" data-index="7">300</button>
+                <button type="submit" class="jQuestion" data-index="8">300</button>
+                <button type="submit" class="jQuestion" data-index="0">300</button>
+            </div>
+        </section>
+        <section class="questionSection">
+            <h2 class="randomQuestion"></h2>
+            <div class="multipleChoice">
+
+            </div>
+            <button type="submit">Next</button>
+        </section>
         <section class="resultsSection"></section>
     </main>
     <footer>
