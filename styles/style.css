@@ -1,4 +1,6 @@
+@charset "UTF-8";
 @import url("https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Walter+Turncoat");
 a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, body, canvas, caption, center, cite, code, dd, del, details, dfn, div, dl, dt, em, embed, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html, i, iframe, img, ins, kbd, label, legend, li, mark, menu, nav, object, ol, output, p, pre, q, ruby, s, samp, section, small, span, strike, strong, sub, summary, sup, table, tbody, td, tfoot, th, thead, time, tr, tt, u, ul, var, video {
   margin: 0;
   padding: 0;
@@ -290,21 +292,14 @@ body {
 
 h1, h2 {
   font-family: 'Fredericka the Great', cursive;
-  font-size: 90px;
+}
+
+button, p, footer {
+  font-family: “Walter Turncoat”, cursive;
 }
 
 header, section {
   height: 95vh;
-}
-
-header {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
 }
 
 button {
@@ -323,4 +318,106 @@ footer {
 
 .correct {
   background-color: #568B43;
+}
+
+header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+header p {
+  font-size: 3.5rem;
+  font-family: “Walter Turncoat”, cursive;
+  line-height: 10rem;
+}
+
+header h1 {
+  font-size: 10rem;
+}
+
+.gameStart {
+  background: none;
+  border-radius: 5rem;
+  border-style: none;
+  border: 7px solid #ffffff;
+  color: #ffffff;
+  margin-top: 160px;
+  padding: 20px;
+  font-family: “Walter Turncoat”, cursive;
+  font-size: 3rem;
+  cursor: pointer;
+  -webkit-transition: all .5s;
+  transition: all .5s;
+  width: 30%;
+  text-transform: uppercase;
+  position: relative;
+}
+
+.gameStart:before {
+  position: absolute;
+  top: 10px;
+  left: 0;
+  width: 100%;
+  content: 'Ready?';
+  -webkit-transform: translate3d(0, 10px, 0);
+          transform: translate3d(0, 10px, 0);
+  -webkit-transition: opacity .2s .25s;
+  transition: opacity .2s .25s;
+}
+
+.gameStart span {
+  position: relative;
+  overflow: hidden;
+  display: block;
+  width: 95%;
+  margin: 0 auto;
+  color: transparent;
+  -webkit-transition: color 0.25s ease-in-out;
+  transition: color 0.25s ease-in-out;
+}
+
+.gameStart span:after {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  content: '';
+  width: 100%;
+  height: 2px;
+  background: #ffffff;
+  -webkit-transform: translate3d(-100%, 0, 0);
+          transform: translate3d(-100%, 0, 0);
+}
+
+.gameStart:hover:before {
+  opacity: 0;
+  -webkit-transition-delay: 0s;
+          transition-delay: 0s;
+  /* background-color: #ffffff; */
+}
+
+.gameStart:hover span {
+  color: #ffffff;
+  -webkit-transition-delay: .75s;
+          transition-delay: .75s;
+}
+
+.gameStart:hover span:after {
+  -webkit-transform: translate3d(100%, 0, 0);
+          transform: translate3d(100%, 0, 0);
+  -webkit-transition: -webkit-transform 0.75s cubic-bezier(0.7, 0, 0.3, 1) 0.2s;
+  transition: -webkit-transform 0.75s cubic-bezier(0.7, 0, 0.3, 1) 0.2s;
+  transition: transform 0.75s cubic-bezier(0.7, 0, 0.3, 1) 0.2s;
+  transition: transform 0.75s cubic-bezier(0.7, 0, 0.3, 1) 0.2s, -webkit-transform 0.75s cubic-bezier(0.7, 0, 0.3, 1) 0.2s;
 }

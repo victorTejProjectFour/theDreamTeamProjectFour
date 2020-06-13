@@ -14,15 +14,14 @@ body{
     // background-color: #333;
 h1, h2{
     font-family: 'Fredericka the Great', cursive;
-    font-size: 90px;
+}
+
+button, p, footer{
+    font-family: “Walter Turncoat”, cursive;
 }
 
 header, section {
     height: 95vh;
-}
-header {
-    display: flex;
-    flex-direction: column;
 }
 button{
     background-color: #8B6A43;
