@@ -1,4 +1,3 @@
-@charset "UTF-8";
 @import url("https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Walter+Turncoat");
 a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, body, canvas, caption, center, cite, code, dd, del, details, dfn, div, dl, dt, em, embed, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html, i, iframe, img, ins, kbd, label, legend, li, mark, menu, nav, object, ol, output, p, pre, q, ruby, s, samp, section, small, span, strike, strong, sub, summary, sup, table, tbody, td, tfoot, th, thead, time, tr, tt, u, ul, var, video {
@@ -295,7 +294,7 @@ h1, h2 {
 }
 
 button, p, footer {
-  font-family: “Walter Turncoat”, cursive;
+  font-family: 'Walter Turncoat', cursive;
 }
 
 header, section {
@@ -339,23 +338,24 @@ header {
 
 header p {
   font-size: 3.5rem;
-  font-family: “Walter Turncoat”, cursive;
+  font-family: 'Walter Turncoat', cursive;
   line-height: 10rem;
 }
 
 header h1 {
   font-size: 10rem;
+  color: #000000;
 }
 
 .gameStart {
   background: none;
   border-radius: 5rem;
   border-style: none;
-  border: 7px solid #ffffff;
+  border: 7px solid #000000;
   color: #ffffff;
   margin-top: 160px;
   padding: 20px;
-  font-family: “Walter Turncoat”, cursive;
+  font-family: 'Walter Turncoat', cursive;
   font-size: 3rem;
   cursor: pointer;
   -webkit-transition: all .5s;
@@ -395,9 +395,13 @@ header h1 {
   content: '';
   width: 100%;
   height: 2px;
-  background: #ffffff;
+  background: #000000;
   -webkit-transform: translate3d(-100%, 0, 0);
           transform: translate3d(-100%, 0, 0);
+}
+
+.gameStart:hover {
+  border: 7px solid #ffffff;
 }
 
 .gameStart:hover:before {
@@ -408,7 +412,7 @@ header h1 {
 }
 
 .gameStart:hover span {
-  color: #ffffff;
+  color: #000000;
   -webkit-transition-delay: .75s;
           transition-delay: .75s;
 }
