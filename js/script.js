@@ -23,9 +23,9 @@ triviaApp.getTriviaUrl = function () {
             type: 'multiple'
         }
     }).then(function (results) {
+        triviaApp.allQuestions = [];
         triviaApp.allQuestions.push(...results.results);
         triviaApp.addBoolean();
-        console.log(triviaApp.allQuestions);
     })
 }
 
@@ -56,7 +56,7 @@ triviaApp.displayQuestions = function (obj) {
     const choices = [...obj.incorrect_answers];
     let answerRandomIndex = Math.floor(Math.random() * (4 - 1)) + 1;
     choices.splice(answerRandomIndex - 1, 0, obj.correct_answer);
-    $('.randomQuestion').text(obj.question);
+    $('.randomQuestion').html(obj.question);
     $('.multipleChoiceAnswer').prop('disabled', false);
     choices.forEach((choice, index) => {
         $(`.multipleChoice`).append(`<button class="multipleChoiceAnswer answer${index}">${choice}</button>`)
@@ -67,23 +67,24 @@ triviaApp.displayQuestions = function (obj) {
 triviaApp.checkUserAnswer = function (obj) {
     $('.multipleChoiceAnswer').on('click', function () {
         $('.multipleChoiceAnswer').prop('disabled', true);
-        let userAnswer = $(this).text();
-        if (userAnswer === obj.correct_answer) {
+        let userAnswer = $(this).html();
+        if (triviaApp.translate(obj, userAnswer)) {
             triviaApp.scoreCount(obj.points);
             console.log(triviaApp.totalScore);
         }
         triviaApp.showAnswer(obj);
         $('.nextButton').prop('disabled', false);
-        $('.nextButton').fadeIn(1000);
+        $('.nextButton').show();
         triviaApp.checkCategory(obj);
     })
-
 }
 
-
+triviaApp.translate = function (obj, item) {
+    return item == obj.correct_answer || item == obj.correct_answer.replace(/&quot;/, '\"') || item == obj.correct_answer.replace(/&#039/, "\'") || item == obj.correct_answer.replace(/&amp;/, '\&');
+}
 triviaApp.showAnswer = function (obj) {
     for (let i = 0; i < 4; i++) {
-        if ($(`.answer${i}`).text() == obj.correct_answer) {
+        if (triviaApp.translate(obj, $(`.answer${i}`).text())) {
             $(`.answer${i}`).addClass('correct');
         } else {
             $(`.answer${i}`).addClass('incorrect');
@@ -105,7 +106,7 @@ triviaApp.checkCategory = function (obj) {
         if (j == 0) {
             triviaApp.displayResult();
         } else {
-            $('.categorySection').fadeIn(1000);
+            triviaApp.displayCategories();
         }
     })
 }
@@ -117,9 +118,7 @@ triviaApp.scoreCount = function (points) {
 
 // Create a function that displays the Categories
 triviaApp.displayCategories = function () {
-    // cat1questions = arr.filter(question => question.category === category[0].name)
-    // console.log(cat1questions);
-    $('.categorySection').fadeIn(1000);
+    $('.categorySection').show();
     let category = triviaApp.allQuestions[0].category;
     $('.categoryName').text(category);
     triviaApp.checkQuestionButton();
@@ -138,7 +137,7 @@ triviaApp.checkQuestionButton = function () {
 
         $(`*[data-index=${dataIndex}]`).hide();
         triviaApp.displayQuestions(triviaApp.allQuestions[dataIndex]);
-        $('.questionSection').fadeIn(1000);
+        $('.questionSection').show();
     })
 }
 
@@ -156,25 +155,16 @@ triviaApp.checkQuestionButton = function () {
 
 triviaApp.displayResult = function () {
     $('.categorySection').hide();
-    $('.resultsSection').fadeIn(1000);
+    $('.resultsSection').show();
     $('.totalScore').text(triviaApp.totalScore);
     $('.restartButton').on('click', function () {
-        triviaApp.starGame();
+        location.reload(true);
     })
 }
 
-triviaApp.reset = function () {
-    $('.categorySection').hide();
-    $('.questionSection').hide();
-    $('.resultsSection').hide();
-    triviaApp.allQuestions = [];
-    triviaApp.totalScore = 0;
-    triviaApp.getTriviaUrl()
-}
-
 triviaApp.startGame = function () {
-    triviaApp.reset();
-    $('header').fadeIn(1000);
+    $('.categorySection,.questionSection,.resultsSection').hide();
+    $('header').show();
     $('.gameStart').on('click', function () {
         console.log('hello');
         $('header').hide();
@@ -183,7 +173,7 @@ triviaApp.startGame = function () {
 }
 
 triviaApp.init = () => {
-    triviaApp.starGame();
     triviaApp.getTriviaUrl();
+    triviaApp.startGame();
 }
 $(document).ready(triviaApp.init());
