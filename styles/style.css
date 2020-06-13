@@ -273,7 +273,54 @@ html, body {
   overflow-x: hidden;
 }
 
-h1 {
+body {
+  background: #63856a;
+  /* Old browsers */
+  /* FF3.6+ */
+  /* Chrome,Safari4+ */
+  /* Chrome10+,Safari5.1+ */
+  /* Opera 12+ */
+  /* IE10+ */
+  background: radial-gradient(ellipse at center, #577d5f 1%, #3c5a40 100%);
+  /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#63856a', endColorstr='#3c5a40',GradientType=1 );
+  /* IE6-9 fallback on horizontal gradient */
+  color: #ffffff;
+}
+
+h1, h2 {
   font-family: 'Fredericka the Great', cursive;
   font-size: 90px;
+}
+
+header, section {
+  height: 95vh;
+}
+
+header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+button {
+  background-color: #8B6A43;
+  width: 40%;
+  padding: 50px;
+}
+
+footer {
+  text-align: center;
+}
+
+.incorrect {
+  background-color: #8B4343;
+}
+
+.correct {
+  background-color: #568B43;
 }
