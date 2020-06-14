@@ -284,7 +284,7 @@ body {
   /* IE10+ */
   background: radial-gradient(ellipse at center, #457B9D 1%, #1D3557 100%);
   /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=$colorGeneral, endColorstr=$colorBorderBox,GradientType=1 );
+  /* filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=$colorGeneral, endColorstr=$colorBorderBox,GradientType=1 );  */
   /* IE6-9 fallback on horizontal gradient */
   color: #ffffff;
 }
@@ -416,6 +416,37 @@ header button.gameStart {
   }
 }
 
+/* test */
+.fadeIn {
+  opacity: 1;
+  -webkit-animation-name: fadeInOpacity;
+          animation-name: fadeInOpacity;
+  -webkit-animation-iteration-count: 1;
+          animation-iteration-count: 1;
+  -webkit-animation-timing-function: ease-in;
+          animation-timing-function: ease-in;
+  -webkit-animation-duration: 1s;
+          animation-duration: 1s;
+}
+
+@-webkit-keyframes fadeInOpacity {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInOpacity {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 .gameStart, .nextButton {
   background: none;
   border-radius: 5rem;
@@ -535,7 +566,7 @@ header button.gameStart {
   color: #1D3557;
   -ms-grid-column-align: center;
       justify-self: center;
-  background-color: #979997;
+  background-color: #d3d3d3;
   border-radius: 40px;
   border: 5px solid #1D3557;
 }
@@ -611,6 +642,29 @@ header button.gameStart {
   -webkit-box-shadow: 0 0 10px 7px #1D3557;
           box-shadow: 0 0 10px 7px #1D3557;
   border: 5px solid #A8DADC;
+}
+
+/* timer */
+.c-container {
+  position: absolute;
+  width: 100px;
+  top: 15px;
+  left: 15px;
+}
+
+.c-container .c-text {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  color: white;
+  font-size: 2rem;
+  line-height: 30px;
+  top: 50%;
+  margin-top: -15px;
+}
+
+.c-container svg {
+  width: 100%;
 }
 
 .resultsSection {

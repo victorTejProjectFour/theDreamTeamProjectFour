@@ -7,7 +7,7 @@ body{
         background: -o-radial-gradient(center, ellipse cover,  $colorBackground 1%,$colorBorderBox 100%); /* Opera 12+ */
         background: -ms-radial-gradient(center, ellipse cover,  $colorBackground 1%,$colorBorderBox 100%); /* IE10+ */
         background: radial-gradient(ellipse at center,  $colorBackground 1%,$colorBorderBox 100%); /* W3C */
-        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=$colorGeneral, endColorstr=$colorBorderBox,GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+        /* filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=$colorGeneral, endColorstr=$colorBorderBox,GradientType=1 );  *//* IE6-9 fallback on horizontal gradient */
         color: #ffffff;
     } 
     // background-image: radial-gradient( circle at left 30%, rgba(34, 34, 34, 0.3), rgba(34, 34, 34, 0.3) 80px, rgba(34, 34, 34, 0.5) 100px, rgba(51, 51, 51, 0.5) 160px, rgba(51, 51, 51, 0.5)), linear-gradient( 215deg, transparent, transparent 100px, #222 260px, #222 320px, transparent), radial-gradient( circle at right, #111, rgba(51, 51, 51, 1));
