@@ -68,12 +68,13 @@ triviaApp.displayQuestions = function (obj) {
 }
 
 triviaApp.checkUserAnswer = function (obj) {
+    console.log(obj.correct_answer);
     $('.multipleChoiceAnswer').on('click', function () {
         $('.multipleChoiceAnswer').prop('disabled', true);
         let userAnswer = $(this).html();
         if (triviaApp.translate(obj, userAnswer)) {
             triviaApp.scoreCount(obj.points);
-            console.log(triviaApp.totalScore);
+            
         }
         triviaApp.showAnswer(obj);
         $('.nextButton').prop('disabled', false);
@@ -82,8 +83,9 @@ triviaApp.checkUserAnswer = function (obj) {
     })
 }
 
+/* These are the special characters need to replace */
 triviaApp.translate = function (obj, item) {
-    return item == obj.correct_answer || item == obj.correct_answer.replace(/&quot;/g, '\"').replace(/&#039;/g, "\'").replace(/&amp;/g, '\&').replace(/&ntilde;/g, 'ñ').replace(/&aacute;/g, 'á').replace(/&oacute;/g, 'ó');
+    return item == obj.correct_answer || item == obj.correct_answer.replace(/&quot;/g, '\"').replace(/&#039;/g, "\'").replace(/&amp;/g, '\&').replace(/&ntilde;/g, 'ñ').replace(/&aacute;/g, 'á').replace(/&oacute;/g, 'ó').replace(/&Delta;/g, 'Δ').replace(/&Uuml;/g, 'Ü');
 }
 
 triviaApp.showAnswer = function (obj) {
@@ -117,6 +119,7 @@ triviaApp.checkCategory = function (obj) {
 
 triviaApp.scoreCount = function (points) {
     triviaApp.totalScore += points;
+    $(".displayScore").html(triviaApp.totalScore);
 }
 
 
@@ -247,8 +250,7 @@ triviaApp.initTimer = function () {
     let now = moment();
     let end = moment().add({seconds: 10});
     let diff = end.diff(now);
-    let $element = $('.c-container');
-    let $txt = $('.c-text')
+    let $txt = $('.cText')
     let svg = Snap($element.find('svg')[0]);
     let progress = svg.select('#progress');
     progress.attr({
@@ -264,15 +266,17 @@ triviaApp.initTimer = function () {
         diff = (end.diff(now)) / 1000;
         let counter = Math.floor(diff);
         console.log(diff);
-        console.log('now',now);
         if ($('.multipleChoiceAnswer').prop('disabled') == true){
-            clearInterval(timer);
+            triviaApp.scoreCount(counter);
+            diff = 0;
+            return clearInterval(timer);
         }else if (diff > 0) {
             console.log('now',now);
             $txt.text(counter);
         } else {
             $txt.text("Time's up!");
-            clearInterval(timer);
+            diff = 0;
+            return clearInterval(timer);
         }
     }, 200);
 }

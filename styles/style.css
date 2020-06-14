@@ -311,6 +311,16 @@ button {
   padding: 15px;
 }
 
+.scoreContainer {
+  position: absolute;
+  top: 30px;
+  left: 15px;
+}
+
+.scoreText {
+  font-size: 2rem;
+}
+
 footer {
   text-align: center;
 }
@@ -645,14 +655,14 @@ header button.gameStart {
 }
 
 /* timer */
-.c-container {
+.cContainer {
   position: absolute;
   width: 100px;
   top: 15px;
-  left: 15px;
+  right: 25px;
 }
 
-.c-container .c-text {
+.cContainer .cText {
   position: absolute;
   width: 100%;
   text-align: center;
@@ -663,7 +673,7 @@ header button.gameStart {
   margin-top: -15px;
 }
 
-.c-container svg {
+.cContainer svg {
   width: 100%;
 }
 

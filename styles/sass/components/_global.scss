@@ -32,6 +32,16 @@ button{
     width:40%;
     padding: 15px;
 }
+
+.scoreContainer{
+    position: absolute;
+    top:30px;
+    left:15px;
+}
+.scoreText{
+    font-size: 2rem;
+}
+
 footer {
     text-align: center;
 }
