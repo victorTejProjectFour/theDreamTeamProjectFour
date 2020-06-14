@@ -250,7 +250,7 @@ body {
 }
 
 .wrapper {
-  max-width: 1140px;
+  max-width: 1200px;
   width: 90%;
   margin: 0 auto;
 }
@@ -275,16 +275,16 @@ html, body {
 }
 
 body {
-  background: #63856a;
+  background: #A8DADC;
   /* Old browsers */
   /* FF3.6+ */
   /* Chrome,Safari4+ */
   /* Chrome10+,Safari5.1+ */
   /* Opera 12+ */
   /* IE10+ */
-  background: radial-gradient(ellipse at center, #577d5f 1%, #3c5a40 100%);
+  background: radial-gradient(ellipse at center, #457B9D 1%, #1D3557 100%);
   /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#63856a', endColorstr='#3c5a40',GradientType=1 );
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=$colorGeneral, endColorstr=$colorBorderBox,GradientType=1 );
   /* IE6-9 fallback on horizontal gradient */
   color: #ffffff;
 }
@@ -292,6 +292,7 @@ body {
 h1, h2 {
   font-family: 'Fredericka the Great', cursive;
   margin-bottom: 40px;
+  color: #fff5d7;
 }
 
 h3, button, p, footer {
@@ -305,21 +306,13 @@ header, section {
 button {
   background: none;
   border-style: none;
-  border: 5px solid #ffffff;
+  border: 5px solid #979997;
   width: 40%;
   padding: 15px;
 }
 
 footer {
   text-align: center;
-}
-
-.incorrect {
-  background-color: #8B4343;
-}
-
-.correct {
-  background-color: #568B43;
 }
 
 header {
@@ -341,7 +334,6 @@ header {
 
 header h1 {
   font-size: 10rem;
-  color: #000000;
 }
 
 header p {
@@ -390,8 +382,8 @@ header button.gameStart {
   position: absolute;
   -webkit-animation: progress-anime 3s ease-out infinite;
           animation: progress-anime 3s ease-out infinite;
-  background: -webkit-gradient(linear, left top, right top, from(#577d5f), color-stop(50%, #4c6f12), color-stop(50%, #d2d2d2), to(#d2d2d2));
-  background: linear-gradient(to right, #577d5f 0%, #4c6f12 50%, #d2d2d2 50%, #d2d2d2 100%);
+  background: -webkit-gradient(linear, left top, right top, from(#457B9D), color-stop(50%, #1D3557), color-stop(50%, #F1FAEE), to(#F1FAEE));
+  background: linear-gradient(to right, #457B9D 0%, #1D3557 50%, #F1FAEE 50%, #F1FAEE 100%);
 }
 
 @-webkit-keyframes progress-anime {
@@ -428,8 +420,8 @@ header button.gameStart {
   background: none;
   border-radius: 5rem;
   border-style: none;
-  border: 7px solid #000000;
-  color: #ffffff;
+  border: 7px solid #011627;
+  color: #011627;
   margin-top: 60px;
   padding: 20px;
   font-family: 'Walter Turncoat', cursive;
@@ -472,13 +464,13 @@ header button.gameStart {
   content: '';
   width: 100%;
   height: 2px;
-  background: #000000;
+  background: #011627;
   -webkit-transform: translate3d(-100%, 0, 0);
           transform: translate3d(-100%, 0, 0);
 }
 
 .gameStart:hover, .nextButton:hover {
-  border: 7px solid #ffffff;
+  border: 7px solid #A8DADC;
 }
 
 .gameStart:hover:before, .nextButton:hover:before {
@@ -489,7 +481,7 @@ header button.gameStart {
 }
 
 .gameStart:hover span, .nextButton:hover span {
-  color: #000000;
+  color: #A8DADC;
   -webkit-transition-delay: .75s;
           transition-delay: .75s;
 }
@@ -520,16 +512,16 @@ header button.gameStart {
 }
 
 .categoryName {
-  font-size: 6rem;
+  font-size: 10rem;
   text-align: center;
 }
 
 .questionButtons {
-  width: 80%;
+  width: 100%;
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 3fr 3fr 3fr;
-      grid-template-columns: 3fr 3fr 3fr;
+  -ms-grid-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
   -ms-grid-rows: auto;
       grid-template-rows: auto;
   -webkit-column-gap: 10px;
@@ -540,14 +532,23 @@ header button.gameStart {
 .questionButtons button {
   font-size: 5rem;
   width: 100%;
-  color: #ffffff;
+  color: #1D3557;
   -ms-grid-column-align: center;
       justify-self: center;
+  background-color: #979997;
+  border-radius: 40px;
+  border: 5px solid #1D3557;
 }
 
-.questionButtons button:hover, .questionButtons buttonfocus {
+.questionButtons button:hover:enabled, .questionButtons button:focus:enabled {
   -webkit-transform: rotate(2deg);
           transform: rotate(2deg);
+}
+
+.questionButtons button.jQuestion.disabled {
+  color: #504f4f;
+  border: 5px solid #504f4f;
+  background-color: transparent;
 }
 
 .questionSection {
@@ -570,6 +571,7 @@ header button.gameStart {
   font-size: 4rem;
   text-align: center;
   line-height: 6rem;
+  color: #fff5d7;
 }
 
 .multipleChoice {
@@ -585,17 +587,30 @@ header button.gameStart {
   row-gap: 10px;
 }
 
-.multipleChoice button {
-  font-size: 3rem;
-  width: 100%;
-  color: #ffffff;
-  -ms-grid-column-align: center;
-      justify-self: center;
+.multipleChoice .incorrect {
+  background-color: #9e4c4c;
 }
 
-button.disabled {
-  color: #504f4f;
-  border: 5px solid #504f4f;
+.multipleChoice .correct {
+  background-color: #3db977;
+  color: #fff5d7;
+}
+
+.multipleChoiceAnswer {
+  font-size: 3rem;
+  width: 100%;
+  color: #1D3557;
+  -ms-grid-column-align: center;
+      justify-self: center;
+  border: 5px solid #1D3557;
+  background-color: #A8DADC;
+}
+
+.multipleChoiceAnswer:hover:enabled, .multipleChoiceAnswer:focus:enabled {
+  /* background-color:orangered; */
+  -webkit-box-shadow: 0 0 10px 7px #1D3557;
+          box-shadow: 0 0 10px 7px #1D3557;
+  border: 5px solid #A8DADC;
 }
 
 .resultsSection {
@@ -626,8 +641,28 @@ button.disabled {
 
 .restartButton {
   font-size: 5rem;
-  color: #ffffff;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  border: none;
+  background: #1D3557;
+  font-size: 1.7em;
+  line-height: 0.9em;
+  color: #fff5d7;
+  z-index: 1;
+  -webkit-box-shadow: 7px -7px 0px #A8DADC, -7px 7px 0px #A8DADC;
+          box-shadow: 7px -7px 0px #A8DADC, -7px 7px 0px #A8DADC;
+  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+  -webkit-transform: scale(1);
+          transform: scale(1);
+}
+
+.restartButton:hover {
+  -webkit-box-shadow: 0px 0px 0px #1acc9b, 0px 0px 0px #1acc9b;
+          box-shadow: 0px 0px 0px #1acc9b, 0px 0px 0px #1acc9b;
+  -webkit-transform: scale(1.06);
+          transform: scale(1.06);
+  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
 }

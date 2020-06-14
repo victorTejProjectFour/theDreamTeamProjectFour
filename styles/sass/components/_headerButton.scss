@@ -2,8 +2,8 @@
   background: none;
   border-radius: 5rem;
   border-style: none;
-  border: 7px solid #000000;
-  color: #ffffff;
+  border: 7px solid $colorText;
+  color: $colorText;
   margin-top: 60px;
   padding: 20px;
   font-family: 'Walter Turncoat', cursive;
@@ -38,12 +38,12 @@
       content: '';
       width: 100%;
       height: 2px;
-      background: #000000;
+      background: $colorText;
       transform: translate3d(-100%, 0, 0);
     }
   }
   &:hover {
-    border: 7px solid #ffffff;
+    border: 7px solid $colorGeneral;
     &:before {
       
       opacity: 0;
@@ -52,7 +52,7 @@
       /* background-color: #ffffff; */
     }
     span {
-      color: #000000;
+      color: $colorGeneral;
       transition-delay: .75s;
       &:after {
         transform: translate3d(100%, 0, 0);

@@ -16,6 +16,22 @@
 
 .restartButton {
     font-size: 5rem;
-    color: #ffffff;
     justify-content: center;
+    border: none;
+    background:  $colorBorderBox;
+    font-size: 1.7em;
+    line-height: 0.9em;
+    color: $colorHeader;
+    z-index: 1;
+    box-shadow: 7px -7px 0px $colorGeneral,
+      -7px 7px 0px $colorGeneral;
+    transition: all 0.4s ease-in-out;
+    transform: scale(1);
+    &:hover{
+        box-shadow: 0px 0px 0px  rgba(26, 204, 155, 1),
+          0px 0px 0px  rgba(26, 204, 155, 1);
+          transform: scale(1.06);
+        transition: all 0.4s ease-in-out;
+      }
 }
+  
