@@ -1,0 +1,21 @@
+.resultsSection {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    h2 {
+        font-size: 10rem;
+        text-align: center;
+    }
+}
+
+.totalScore {
+    font-size: 10rem;
+    margin-bottom: 50px;
+}
+
+.restartButton {
+    font-size: 5rem;
+    color: #ffffff;
+    justify-content: center;
+}

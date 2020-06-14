@@ -291,9 +291,10 @@ body {
 
 h1, h2 {
   font-family: 'Fredericka the Great', cursive;
+  margin-bottom: 40px;
 }
 
-button, p, footer {
+h3, button, p, footer {
   font-family: 'Walter Turncoat', cursive;
 }
 
@@ -302,9 +303,11 @@ header, section {
 }
 
 button {
-  background-color: #8B6A43;
+  background: none;
+  border-style: none;
+  border: 5px solid #ffffff;
   width: 40%;
-  padding: 50px;
+  padding: 15px;
 }
 
 footer {
@@ -336,24 +339,98 @@ header {
           justify-content: center;
 }
 
-header p {
-  font-size: 3.5rem;
-  font-family: 'Walter Turncoat', cursive;
-  line-height: 10rem;
-}
-
 header h1 {
   font-size: 10rem;
   color: #000000;
 }
 
-.gameStart {
+header p {
+  font-size: 3.5rem;
+  font-family: 'Walter Turncoat', cursive;
+  line-height: 4rem;
+}
+
+header button.gameStart {
+  margin-top: 160px;
+}
+
+.headerTitle {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.headerLoader {
+  margin: auto;
+  width: 450px;
+  max-width: 80%;
+  height: 15px;
+  -webkit-box-shadow: 0px 0px 4px #ffffffd1;
+          box-shadow: 0px 0px 4px #ffffffd1;
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.headerLoader:before {
+  content: '';
+  width: 200%;
+  height: 100%;
+  position: absolute;
+  -webkit-animation: progress-anime 3s ease-out infinite;
+          animation: progress-anime 3s ease-out infinite;
+  background: -webkit-gradient(linear, left top, right top, from(#577d5f), color-stop(50%, #4c6f12), color-stop(50%, #d2d2d2), to(#d2d2d2));
+  background: linear-gradient(to right, #577d5f 0%, #4c6f12 50%, #d2d2d2 50%, #d2d2d2 100%);
+}
+
+@-webkit-keyframes progress-anime {
+  0% {
+    left: -100%;
+  }
+  75% {
+    left: -5%;
+  }
+  85% {
+    left: -5%;
+  }
+  95% {
+    left: 0;
+  }
+}
+
+@keyframes progress-anime {
+  0% {
+    left: -100%;
+  }
+  75% {
+    left: -5%;
+  }
+  85% {
+    left: -5%;
+  }
+  95% {
+    left: 0;
+  }
+}
+
+.gameStart, .nextButton {
   background: none;
   border-radius: 5rem;
   border-style: none;
   border: 7px solid #000000;
   color: #ffffff;
-  margin-top: 160px;
+  margin-top: 60px;
   padding: 20px;
   font-family: 'Walter Turncoat', cursive;
   font-size: 3rem;
@@ -365,7 +442,7 @@ header h1 {
   position: relative;
 }
 
-.gameStart:before {
+.gameStart:before, .nextButton:before {
   position: absolute;
   top: 10px;
   left: 0;
@@ -377,7 +454,7 @@ header h1 {
   transition: opacity .2s .25s;
 }
 
-.gameStart span {
+.gameStart span, .nextButton span {
   position: relative;
   overflow: hidden;
   display: block;
@@ -388,7 +465,7 @@ header h1 {
   transition: color 0.25s ease-in-out;
 }
 
-.gameStart span:after {
+.gameStart span:after, .nextButton span:after {
   position: absolute;
   top: 50%;
   left: 0;
@@ -400,28 +477,157 @@ header h1 {
           transform: translate3d(-100%, 0, 0);
 }
 
-.gameStart:hover {
+.gameStart:hover, .nextButton:hover {
   border: 7px solid #ffffff;
 }
 
-.gameStart:hover:before {
+.gameStart:hover:before, .nextButton:hover:before {
   opacity: 0;
   -webkit-transition-delay: 0s;
           transition-delay: 0s;
   /* background-color: #ffffff; */
 }
 
-.gameStart:hover span {
+.gameStart:hover span, .nextButton:hover span {
   color: #000000;
   -webkit-transition-delay: .75s;
           transition-delay: .75s;
 }
 
-.gameStart:hover span:after {
+.gameStart:hover span:after, .nextButton:hover span:after {
   -webkit-transform: translate3d(100%, 0, 0);
           transform: translate3d(100%, 0, 0);
   -webkit-transition: -webkit-transform 0.75s cubic-bezier(0.7, 0, 0.3, 1) 0.2s;
   transition: -webkit-transform 0.75s cubic-bezier(0.7, 0, 0.3, 1) 0.2s;
   transition: transform 0.75s cubic-bezier(0.7, 0, 0.3, 1) 0.2s;
   transition: transform 0.75s cubic-bezier(0.7, 0, 0.3, 1) 0.2s, -webkit-transform 0.75s cubic-bezier(0.7, 0, 0.3, 1) 0.2s;
+}
+
+.categorySection {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.categoryName {
+  font-size: 6rem;
+  text-align: center;
+}
+
+.questionButtons {
+  width: 80%;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 3fr 3fr 3fr;
+      grid-template-columns: 3fr 3fr 3fr;
+  -ms-grid-rows: auto;
+      grid-template-rows: auto;
+  -webkit-column-gap: 10px;
+          column-gap: 10px;
+  row-gap: 10px;
+}
+
+.questionButtons button {
+  font-size: 5rem;
+  width: 100%;
+  color: #ffffff;
+  -ms-grid-column-align: center;
+      justify-self: center;
+}
+
+.questionButtons button:hover, .questionButtons buttonfocus {
+  -webkit-transform: rotate(2deg);
+          transform: rotate(2deg);
+}
+
+.questionSection {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.randomQuestion {
+  font-size: 4rem;
+  text-align: center;
+  line-height: 6rem;
+}
+
+.multipleChoice {
+  width: 90%;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 3fr 3fr;
+      grid-template-columns: 3fr 3fr;
+  -ms-grid-rows: auto;
+      grid-template-rows: auto;
+  -webkit-column-gap: 10px;
+          column-gap: 10px;
+  row-gap: 10px;
+}
+
+.multipleChoice button {
+  font-size: 3rem;
+  width: 100%;
+  color: #ffffff;
+  -ms-grid-column-align: center;
+      justify-self: center;
+}
+
+button.disabled {
+  color: #504f4f;
+  border: 5px solid #504f4f;
+}
+
+.resultsSection {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.resultsSection h2 {
+  font-size: 10rem;
+  text-align: center;
+}
+
+.totalScore {
+  font-size: 10rem;
+  margin-bottom: 50px;
+}
+
+.restartButton {
+  font-size: 5rem;
+  color: #ffffff;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
