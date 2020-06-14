@@ -52,6 +52,7 @@ triviaApp.addBoolean = function () {
 
 // Create a Function that will have a parameter of an obj 
 triviaApp.displayQuestions = function (obj) {
+
     $(`.multipleChoice`).empty();
     const choices = [...obj.incorrect_answers];
     let answerRandomIndex = Math.floor(Math.random() * (4 - 1)) + 1;
@@ -80,8 +81,9 @@ triviaApp.checkUserAnswer = function (obj) {
 }
 
 triviaApp.translate = function (obj, item) {
-    return item == obj.correct_answer || item == obj.correct_answer.replace(/&quot;/, '\"') || item == obj.correct_answer.replace(/&#039/, "\'") || item == obj.correct_answer.replace(/&amp;/, '\&');
+    return item == obj.correct_answer || item == obj.correct_answer.replace(/&quot;/g, '\"').replace(/&#039;/g, "\'").replace(/&amp;/g, '\&').replace(/&ntilde;/g, 'ñ').replace(/&aacute;/g, 'á').replace(/&oacute;/g, 'ó');
 }
+
 triviaApp.showAnswer = function (obj) {
     for (let i = 0; i < 4; i++) {
         if (triviaApp.translate(obj, $(`.answer${i}`).text())) {
@@ -135,7 +137,8 @@ triviaApp.checkQuestionButton = function () {
         triviaApp.allQuestions[dataIndex].points = parseInt($(this).text());
         triviaApp.allQuestions[dataIndex].boxStatus = false;
 
-        $(`*[data-index=${dataIndex}]`).hide();
+        $(`*[data-index=${dataIndex}]`).prop('disabled', true);
+        $(`*[data-index=${dataIndex}]`).addClass('disabled');
         triviaApp.displayQuestions(triviaApp.allQuestions[dataIndex]);
         $('.questionSection').show();
     })
@@ -164,16 +167,23 @@ triviaApp.displayResult = function () {
 
 triviaApp.startGame = function () {
     $('.categorySection,.questionSection,.resultsSection').hide();
-    $('header').show();
+    $('.headerTitle').hide();
+    $('.headerLoader').show();
+    setTimeout(function () {
+        console.log('hell1o');
+        $('.headerLoader').hide();
+        $('.headerTitle').show();
+    }, 3000);
     $('.gameStart').on('click', function () {
-        console.log('hello');
-        $('header').hide();
         triviaApp.displayCategories();
+        $('header').hide();
     });
 }
 
 triviaApp.init = () => {
     triviaApp.getTriviaUrl();
+
     triviaApp.startGame();
+
 }
 $(document).ready(triviaApp.init());
