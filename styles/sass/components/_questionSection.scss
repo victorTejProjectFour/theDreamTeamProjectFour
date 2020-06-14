@@ -8,6 +8,7 @@
     font-size: 4rem;
     text-align: center;
     line-height: 6rem;
+    color:$colorHeader;
 }
 
 .multipleChoice {
@@ -17,18 +18,30 @@
     grid-template-rows: auto; 
     column-gap: 10px;
     row-gap: 10px;
-    button{
-        font-size: 3rem;
-        width:100%;
-        color:#ffffff;
-        justify-self: center;
+    .incorrect {
+        background-color: #9e4c4c;
     }
+    .correct {
+        background-color: #3db977;
+        color:$colorHeader;
+    }
+    
 }
 
-button.disabled {
-    color:#504f4f;
-    border: 5px solid #504f4f;
-    // width:40%;
-    // padding: 15px;
 
+.multipleChoiceAnswer {
+    font-size: 3rem;
+    width:100%;
+    color:$colorBorderBox;
+    justify-self: center;
+    border:5px solid $colorBorderBox;
+    background-color: $colorGeneral;
+    &:hover:enabled,
+    &:focus:enabled{
+        /* background-color:orangered; */
+        box-shadow:0 0 10px 7px $colorBorderBox;
+        border:5px solid $colorGeneral;
+    }
+    
 }
+
