@@ -10,7 +10,7 @@
 
 <body class="blackboard">
     <header class="wrapper">
-        <section class="headerTitle">
+        <section class="headerTitle fadeIn">
             <h1>Question Impossible</h1>
             <p>You are the chosen one, answer all the questions and be a millionaire</p>
             <button type="submit" class="gameStart"><span>Let's Go</span></button>
@@ -35,6 +35,21 @@
             </div>
         </section>
         <section class="questionSection">
+            <!-- timer -->
+            <div class="c-container timerPosition">
+                <div class="c-text"></div>
+                <svg id="yeah" viewbox="0 0 100 100">
+                    <path id="bg" stroke-linecap="round" stroke-width="4" stroke="#212b37" fill="none" d="M50 2 
+                       a 48 48 0 0 1 0 96 
+                       a 48 48 0 0 1 0 -96">
+                    </path>
+                    <path id="progress" stroke-linecap="round" stroke-width="4" stroke="#7bdccd" fill="none" d="M50 2 
+                       a 48 48 0 0 1 0 96 
+                       a 48 48 0 0 1 0 -96">
+                    </path>
+                </svg>
+            </div>
+            <!-- timer -->
             <h2 class="randomQuestion"></h2>
             <div class="multipleChoice">
 
@@ -51,7 +66,11 @@
         <p>Copyright ⓒ 2020 Victor Wong🐒 & Tej Lehal🧞</p>
     </footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-    <!-- <script src="js/script.js"></script> -->
+    <!-- <script src="js/script.js"></script> -->    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.25.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.3.0/snap.svg-min.js"></script>
+    <script src="https://rawgit.com/mckamey/countdownjs/master/countdown.min.js"></script>
+    <!-- timer -->
     <script src="js/script.js"></script>
 </body>
 

@@ -45,3 +45,24 @@
     
 }
 
+/* timer */
+.c-container {
+    position: absolute;
+    width: 100px;
+    top:15px;
+    left:15px;
+    .c-text {
+      position: absolute;
+      width: 100%;
+      text-align: center;
+      color: white;
+      font-size: 2rem;
+      line-height: 30px;
+      top: 50%;
+      margin-top: -15px;
+    }
+    svg {
+      width: 100%;
+    }
+  }
+  

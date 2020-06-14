@@ -54,6 +54,8 @@ triviaApp.addBoolean = function () {
 triviaApp.displayQuestions = function (obj) {
 
     $(`.multipleChoice`).empty();
+    triviaApp.initTimer();
+    /* let timer = new Countdown({seconds: 5}, $(".c-container")); */
     const choices = [...obj.incorrect_answers];
     let answerRandomIndex = Math.floor(Math.random() * (4 - 1)) + 1;
     choices.splice(answerRandomIndex - 1, 0, obj.correct_answer);
@@ -75,7 +77,7 @@ triviaApp.checkUserAnswer = function (obj) {
         }
         triviaApp.showAnswer(obj);
         $('.nextButton').prop('disabled', false);
-        $('.nextButton').show();
+        $('.nextButton').css('visibility','visible');
         triviaApp.checkCategory(obj);
     })
 }
@@ -131,7 +133,7 @@ triviaApp.checkQuestionButton = function () {
     $('.jQuestion').on('click', function () {
         // console.log(`${data - index}`);
         $('.categorySection').hide();
-        $('.nextButton').hide();
+        $('.nextButton').css('visibility','hidden');
         let dataIndex = $(this).data("index");
         // console.log($(this).text());
         triviaApp.allQuestions[dataIndex].points = parseInt($(this).text());
@@ -179,6 +181,105 @@ triviaApp.startGame = function () {
         $('header').hide();
     });
 }
+/* timer */
+/* https://codepen.io/kelvinh111/pen/doeprX */
+/* class Util {
+    static convertMS(ms) {
+        let s;
+
+        s = Math.floor(ms / 1000);
+        return {
+            s: s
+        };
+    };
+
+    static addZ(n) {
+        if (!n) return "00";
+        return (n < 10 ? '0' : '') + n;
+    }
+
+    static formatTime(obj) {
+        return Util.addZ(obj.s) + "S";
+    }
+} */
+
+/* class Countdown {
+    constructor(endTime, $element) {
+        this.now = moment();
+        this.end = moment().add(endTime);
+        this.diff = this.end.diff(this.now);
+        this.$el = $element;
+        this.svg = Snap(this.$el.find("svg")[0]);
+        this.progress = this.svg.select("#progress");
+        this.$txt = this.$el.find(".c-text");
+        this.initCircle();
+        this.initTimer();
+    }
+    
+    initCircle() {
+        let self = this;
+        self.progress.attr({
+            strokeDasharray: '0, 301.44'
+        });
+        Snap.animate(0, 301.44, function(value) {
+            self.progress.attr({
+                'stroke-dasharray': value + ', 301.44'
+            });
+        }, self.diff);
+    }
+    
+    initTimer() {
+        let self = this;
+        self.timer = setInterval(function() {
+            self.now = moment();
+            self.diff = self.end.diff(self.now);
+
+            if (self.diff > 0) {
+                self.$txt.text(self.diff);
+            } else {
+                self.$txt.text("Time's up!!!");
+                clearInterval(self.timer);
+            }
+        }, 200);
+    }
+} */
+triviaApp.initTimer = function () {
+    let now = moment();
+    let end = moment().add({seconds: 10});
+    let diff = end.diff(now);
+    let $element = $('.c-container');
+    let $txt = $('.c-text')
+    let svg = Snap($element.find('svg')[0]);
+    let progress = svg.select('#progress');
+    progress.attr({
+        strokeDasharray: '0, 301.44'
+    });
+    Snap.animate(0, 301.44, function (value) {
+        progress.attr({
+            'stroke-dasharray': value + ', 301.44'
+        });
+    }, diff);
+    let timer = setInterval(function () {
+        now = moment();
+        diff = (end.diff(now)) / 1000;
+        let counter = Math.floor(diff);
+        console.log(diff);
+        console.log('now',now);
+        if ($('.multipleChoiceAnswer').prop('disabled') == true){
+            clearInterval(timer);
+        }else if (diff > 0) {
+            console.log('now',now);
+            $txt.text(counter);
+        } else {
+            $txt.text("Time's up!");
+            clearInterval(timer);
+        }
+    }, 200);
+}
+
+
+
+/* timer */
 
 triviaApp.init = () => {
     triviaApp.getTriviaUrl();
