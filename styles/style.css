@@ -628,9 +628,7 @@ header button.gameStart {
 }
 
 .questionButtons button.jQuestion.disabled {
-  color: #504f4f;
-  border: 5px solid #504f4f;
-  background-color: transparent;
+  background-color: #504f4f;
 }
 
 .questionSection {
@@ -708,6 +706,7 @@ header button.gameStart {
   height: 60px;
   border-radius: 50%;
   border: 2px solid #d3d3d3;
+  cursor: pointer;
 }
 
 .helpKit h3 {
@@ -715,8 +714,28 @@ header button.gameStart {
   width: 100%;
   top: 50%;
   color: #d3d3d3;
-  margin-top: -10px;
+  margin-top: -12px;
+  left: 1px;
   text-align: center;
+}
+
+.helpKit:hover:enabled, .helpKit:focus:enabled {
+  border: 2px solid #F1FAEE;
+  -webkit-box-shadow: 0 0 5px 5px #F1FAEE;
+          box-shadow: 0 0 5px 5px #F1FAEE;
+}
+
+.helpKit:hover:enabled h3, .helpKit:focus:enabled h3 {
+  color: #A8DADC;
+}
+
+.helpKit.disableHelpKit {
+  border: 2px solid #1D3557;
+  cursor: default;
+}
+
+.helpKit.disableHelpKit h3 {
+  color: #1D3557;
 }
 
 /* timer */

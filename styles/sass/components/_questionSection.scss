@@ -58,15 +58,34 @@
     height: 60px;
     border-radius: 50%;
     border:2px solid $colorDefault;
+    cursor: pointer;
     h3{
         position: absolute;
         width: 100%;
         top: 50%;
         color: $colorDefault;
-        margin-top: -10px;
+        margin-top: -12px;
+        left: 1px;
         text-align: center;
     }
+    &:hover:enabled,
+    &:focus:enabled {
+        border: 2px solid $colorShadowHover;
+        box-shadow: 0 0 5px 5px $colorShadowHover ;
+        h3 {
+            color: $colorGeneral;
+        }
+    }
+    &.disableHelpKit {
+        border: 2px solid $colorBorderBox;
+        h3 {
+            color: $colorBorderBox;
+        }
+        cursor: default;
+    }
 }
+
+
 /* timer */
 .cContainer {
     position: absolute;

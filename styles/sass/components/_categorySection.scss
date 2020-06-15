@@ -29,13 +29,8 @@
             transform: rotate(2deg);
         }
         &.jQuestion.disabled{
-            color:$colorDisabled;
-            border: 5px solid $colorDisabled;
-            background-color: transparent;
-            // width:40%;
-            // padding: 15px;
+            background-color: $colorDisabled;
             }
-
     }
    
 }
