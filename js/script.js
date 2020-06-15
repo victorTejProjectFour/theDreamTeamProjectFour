@@ -5,7 +5,8 @@ triviaApp.apiQuestionUrl = 'https://opentdb.com/api.php';
 triviaApp.apiCatUrl = 'https://opentdb.com/api_category.php';
 triviaApp.allQuestions = [];
 triviaApp.totalScore = 0;
-triviaApp.Volume = 0.2;
+triviaApp.volume = 0.2;
+triviaApp.timer;
 
 // triviaApp.getTriviaUrl = function (userCategory, userDifficulty) {
 triviaApp.getTriviaUrl = function () {
@@ -29,31 +30,18 @@ triviaApp.getTriviaUrl = function () {
     })
 }
 
-// triviaApp.getCatNameUrl = function () {
-//     return $.ajax({
-//         url: triviaApp.apiCatUrl,
-//         method: 'GET',
-//         datatype: 'json',
-//     })
-// }
+
 
 triviaApp.addBoolean = function () {
     triviaApp.allQuestions.forEach(function (item) {
         item.boxStatus = true;
     })
 }
-// triviaApp.CataArray = function (catName) {
-//     const categoryTitle = [];
-//     do {
-//         categoryTitle[categoryTitle.length] = catName.splice(Math.floor(Math.random() * catName.length), 1)[0];
-//     } while (categoryTitle.length < 3)
-//     return categoryTitle;
-// }
 
 // Create a Function that will have a parameter of an obj 
 triviaApp.displayQuestions = function (obj) {
     $('.multipleChoice').empty();
-    $('.responseResult').css('visibility','hidden');
+    $('.responseResult').css('visibility', 'hidden');
     triviaApp.initTimer();
     /* let timer = new Countdown({seconds: 5}, $(".c-container")); */
     const choices = [...obj.incorrect_answers];
@@ -69,21 +57,21 @@ triviaApp.displayQuestions = function (obj) {
 
 triviaApp.checkUserAnswer = function (obj) {
     triviaApp.helping(obj);
-    $('.multipleChoiceAnswer').on('click', function () {    
-        $('.multipleChoiceAnswer').prop('disabled', true);     
+    $('.multipleChoiceAnswer').on('click', function () {
+        $('.multipleChoiceAnswer').prop('disabled', true);
         let userAnswer = $(this).html();
-        $('.responseResult').css('visibility','visible');
+        $('.responseResult').css('visibility', 'visible');
         if (triviaApp.translate(obj, userAnswer)) {
             triviaApp.scoreCount(obj.points);
             $('.soundCorrect').trigger('play');
-            $('.responseResult').html('Correct!');
-        }else{
+            $('.responseResult').text('Correct!');
+        } else {
             $('.soundWrong').trigger('play');
-            $('.responseResult').html('Try harder!');
+            $('.responseResult').text('Try harder!');
         }
         triviaApp.showAnswer(obj);
         $('.nextButton').prop('disabled', false);
-        $('.nextButton').css('visibility','visible');
+        $('.nextButton').css('visibility', 'visible');
         triviaApp.checkCategory(obj);
     })
 }
@@ -103,59 +91,23 @@ triviaApp.showAnswer = function (obj) {
     }
 }
 
-triviaApp.helping = function(obj){
-    $('.helpKit').on('click',function(){
-        $('.helpKit').hide();
+triviaApp.helping = function (obj) {
+    $('.helpKit').on('click', function () {
+        $('.helpKit').addClass('disableHelpKit').prop('disabled', true);
         triviaApp.showAnswer(obj);
     })
 }
 
-triviaApp.resetAudio = function (audio){
+triviaApp.resetAudio = function (audio) {
     $(audio).trigger('pause');
-    $(audio).prop("currentTime",0);
+    $(audio).prop("currentTime", 0);
 }
-
-$('.play').on('click', function () {
-    $('audio').prop('muted', true);
-    $('.play').hide();
-    $('.pause').show();
-    $('.displayVolume').show().delay(1500).fadeOut().html('Volume:OFF');
-});
-$('.pause').on('click', function () {
-    $('audio').prop('muted', false);
-    $('.pause').hide();
-    $('.play').show();
-    $('.displayVolume').show().delay(1500).fadeOut().html('Volume:ON');
-});
-
-$('.plusVolume').on('click', function () {
-    if(triviaApp.Volume < 1 && (triviaApp.Volume + 0.1) < 1){
-        triviaApp.Volume += 0.1;
-    }else{
-        triviaApp.Volume = 1;
-    }
-    $('.displayVolume').show().delay(1500).fadeOut().html(`Volume: ${(triviaApp.Volume * 100).toFixed(0)}%`);
-    $('audio').prop("volume", triviaApp.Volume);
-})
-
-$('.minusVolume').on('click', function () {
-    if(triviaApp.Volume > 0 && (triviaApp.Volume - 0.1) > 0){
-        triviaApp.Volume -= 0.1;
-    }else{
-        triviaApp.Volume = 0;
-    }
-    $('.displayVolume').show().delay(1500).fadeOut().html(`Volume: ${(triviaApp.Volume * 100).toFixed(0)}%`);
-    $('audio').prop("volume", triviaApp.Volume);
-})
-$('.multipleChoiceAnswer,.nextButton,.restartButton,.gameStart,.jQuestion').mouseenter(function(){
-    $('.soundHover').prop('currentTime',0);
-    $('.soundHover').trigger('play');
-    })
 
 
 
 triviaApp.checkCategory = function (obj) {
     $('.nextButton').on('click', function () {
+        clearInterval(triviaApp.timer);
         $('.nextButton').prop('disabled', true);
         /* audio */
         triviaApp.resetAudio('.soundCorrect');
@@ -178,7 +130,7 @@ triviaApp.checkCategory = function (obj) {
 
 triviaApp.scoreCount = function (points) {
     triviaApp.totalScore += points;
-    $(".displayScore,.totalScore").html(triviaApp.totalScore);
+    $(".displayScore,.totalScore").text(triviaApp.totalScore);
 }
 
 
@@ -194,9 +146,11 @@ triviaApp.displayCategories = function () {
 
 triviaApp.checkQuestionButton = function () {
     $('.jQuestion').on('click', function () {
+        triviaApp.question = {};
+        console.log(triviaApp.question);
         // console.log(`${data - index}`);
         $('.categorySection').hide();
-        $('.nextButton').css('visibility','hidden');
+        $('.nextButton').css('visibility', 'hidden');
         let dataIndex = $(this).data("index");
         // console.log($(this).text());
         triviaApp.allQuestions[dataIndex].points = parseInt($(this).text());
@@ -204,22 +158,13 @@ triviaApp.checkQuestionButton = function () {
 
         $(`*[data-index=${dataIndex}]`).prop('disabled', true);
         $(`*[data-index=${dataIndex}]`).addClass('disabled');
-        triviaApp.displayQuestions(triviaApp.allQuestions[dataIndex]);
+        triviaApp.question = { ...triviaApp.allQuestions[dataIndex] };
+        triviaApp.displayQuestions(triviaApp.question);
         $('.questionSection').show();
     })
 }
 
-//Extracting all 9 questions
 
-// triviaApp.getAllQuestions = function (category) {
-
-//     const difficulty = ['easy', 'medium', 'hard'];
-//     for (let i = 0; i < category.length; i++) {
-//         triviaApp.getTriviaUrl(category[i].id, 'medium').then(function (rest) {
-//             triviaApp.allQuestions.push(...rest.results);
-//         })
-//     }
-// }
 
 triviaApp.displayResult = function () {
     $('.categorySection').hide();
@@ -236,7 +181,7 @@ triviaApp.startGame = function () {
     $('.categorySection,.questionSection,.resultsSection').hide();
     $('.headerTitle').hide();
     $('.headerLoader').show();
-    $('audio').prop("volume", triviaApp.Volume);
+    $('audio').prop("volume", triviaApp.volume);
     setTimeout(function () {
         console.log('hell1o');
         $('.headerLoader').hide();
@@ -314,7 +259,7 @@ triviaApp.startGame = function () {
 } */
 triviaApp.initTimer = function () {
     let now = moment();
-    let end = moment().add({seconds: 10});
+    let end = moment().add({ seconds: 10 });
     let diff = end.diff(now);
     let $element = $('.cContainer');
     let $txt = $('.cText');
@@ -332,15 +277,21 @@ triviaApp.initTimer = function () {
         now = moment();
         diff = (end.diff(now)) / 1000;
         let counter = Math.floor(diff);
-        /* console.log(diff); */
-        if ($('.multipleChoiceAnswer').prop('disabled') == true){
+        console.log(diff);
+        if ($('.multipleChoiceAnswer').prop('disabled') == true) {
             triviaApp.scoreCount(counter);
             diff = 0;
             return clearInterval(timer);
-        }else if (diff > 0) {
-            /* console.log('now',now); */
+        } else if (diff > 0) {
+            console.log('now', now);
             $txt.text(counter);
         } else {
+            $('.multipleChoiceAnswer').prop('disabled', true);
+            $('.soundEndTimer').trigger('play');
+            $('.nextButton').prop('disabled', false);
+            $('.nextButton').css('visibility', 'visible');
+            triviaApp.checkCategory(triviaApp.question);
+            triviaApp.showAnswer(triviaApp.question);
             $txt.text("Time's up!");
             diff = 0;
             return clearInterval(timer);
@@ -350,33 +301,106 @@ triviaApp.initTimer = function () {
 
 /* timer */
 
+triviaApp.initAudio = function () {
+    $('.play').on('click', function () {
+        $('.soundCountdown').prop('muted', true);
+        $('.soundOutro').prop('muted', true);
+        $('.play').hide();
+        $('.pause').show();
+        $('.displayVolume').show().delay(1500).fadeOut().text('Volume:OFF');
+    });
+    $('.pause').on('click', function () {
+        $('.soundCountdown').prop('muted', false);
+        $('.soundOutro').prop('muted', false);
+        $('.pause').hide();
+        $('.play').show();
+        $('.displayVolume').show().delay(1500).fadeOut().text('Volume:ON');
+    });
 
+    $('.plusVolume').on('click', function () {
+        if (triviaApp.volume < 1 && (triviaApp.volume + 0.1) < 1) {
+            triviaApp.volume += 0.1;
+        } else {
+            triviaApp.volume = 1;
+        }
+        $('.displayVolume').show().delay(1500).fadeOut().html(`Volume: ${(triviaApp.volume * 100).toFixed(0)}%`);
+        $('audio').prop("volume", triviaApp.volume);
+    })
 
-/* Easter Egg */
-$('footer > p').one('click',function(){
-    triviaApp.scoreCount(500);
-    $('.soundEaster').trigger('play');
-});
+    $('.minusVolume').on('click', function () {
+        if (triviaApp.volume > 0 && (triviaApp.volume - 0.1) > 0) {
+            triviaApp.volume -= 0.1;
+        } else {
+            triviaApp.volume = 0;
+        }
+        $('.displayVolume').show().delay(1500).fadeOut().html(`Volume: ${(triviaApp.volume * 100).toFixed(0)}%`);
+        $('audio').prop("volume", triviaApp.volume);
+    })
 
-$('footer > p').on('click',function(){
-    /* $('div:contains("test")') */
-    if ($('footer > p').text() == 'Copyright ⓒ 2020 Victor Wong🐒 & Tej Lehal🧞'){
-        $('footer > p').html('Subscribe and Follow us! We will give you Free points!🐒🧞');
-    }else{
-        $('footer > p').html('Copyright ⓒ 2020 Victor Wong🐒 & Tej Lehal🧞');
-    }
-});
-/* Easter Egg 2 */
-$('.displayScore').on('click',function(){
-    if($('.displayScore').html() == 'Initial'){
-        $('.displayScore').html('🍣 & 🍕');
-    }
-});
+    $('.multipleChoiceAnswer,.nextButton,.restartButton,.gameStart,.jQuestion').mouseenter(function () {
+        $('.soundHover').prop('currentTime', 0);
+        $('.soundHover').trigger('play');
+    })
+
+}
+
+triviaApp.easterEggs = function () {
+    $('footer > p').one('click', function () {
+        triviaApp.scoreCount(500);
+        $('.soundEaster').trigger('play');
+    });
+
+    $('footer > p').on('click', function () {
+        /* $('div:contains("test")') */
+        if ($('footer > p').text() == 'Copyright ⓒ 2020 Victor Wong🐒 & Tej Lehal🧞') {
+            $('footer > p').html('Subscribe and Follow us! We will give you Free points!🐒🧞');
+        } else {
+            $('footer > p').html('Copyright ⓒ 2020 Victor Wong🐒 & Tej Lehal🧞');
+        }
+    });
+    /* Easter Egg 2 */
+    $('.displayScore').on('click', function () {
+        if ($('.displayScore').html() == 'Initial') {
+            $('.displayScore').html('🍣 & 🍕');
+        }
+    });
+}
 
 triviaApp.init = () => {
     triviaApp.getTriviaUrl();
-
     triviaApp.startGame();
-
+    triviaApp.initAudio();
+    triviaApp.easterEggs();
 }
 $(document).ready(triviaApp.init());
+
+
+
+// future upgrade 
+
+//Extracting all 9 questions
+
+// triviaApp.getAllQuestions = function (category) {
+//     const difficulty = ['easy', 'medium', 'hard'];
+//     for (let i = 0; i < category.length; i++) {
+//         triviaApp.getTriviaUrl(category[i].id, 'medium').then(function (rest) {
+//             triviaApp.allQuestions.push(...rest.results);
+//         })
+//     }
+// }
+
+// triviaApp.CataArray = function (catName) {
+//     const categoryTitle = [];
+//     do {
+//         categoryTitle[categoryTitle.length] = catName.splice(Math.floor(Math.random() * catName.length), 1)[0];
+//     } while (categoryTitle.length < 3)
+//     return categoryTitle;
+// }
+
+// triviaApp.getCatNameUrl = function () {
+//     return $.ajax({
+//         url: triviaApp.apiCatUrl,
+//         method: 'GET',
+//         datatype: 'json',
+//     })
+// }
