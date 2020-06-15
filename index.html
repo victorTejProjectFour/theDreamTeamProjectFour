@@ -4,13 +4,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Question Impossible</title>
     <link rel="stylesheet" href="styles/style.css">
 </head>
 
 <body class="blackboard">
+    <div class="audioContainer">
+        <p class="play">🔊</p>
+        <p class="pause hide">🔈</p>
+        <p class="plusVolume">➕</p>
+        <p class="minusVolume">➖</p>
+    </div>
+        <p class="audioContainerTxt displayVolume"></p>
     <header class="wrapper">
         <section class="headerTitle fadeIn">
+
             <h1>Question Impossible</h1>
             <p>You are the chosen one, answer all the questions and be a millionaire</p>
             <button type="submit" class="gameStart"><span>Let's Go</span></button>
@@ -23,7 +31,7 @@
         <section class="categorySection">
             <div class="scoreContainer">
                 <h3 class="scoreText">Score:</h3>
-                <h3 class="displayScore"></h3>
+                <h3 class="displayScore">Initial</h3>
             </div>
             <h2 class="categoryName"></h2>
             <div class="questionButtons">
@@ -55,9 +63,14 @@
             </div>
             <!-- timer -->
             <div class="scoreContainer">
-                <h3 class="scoreText">Score:</h3>
+                <h3>Score:</h3>
                 <h3 class="displayScore"></h3>
             </div>
+
+            <div class="helpKit">
+                <h3>Scan</h3>
+            </div>
+            <h2 class="responseResult"></h2>
             <h2 class="randomQuestion"></h2>
             <div class="multipleChoice">
 
@@ -79,6 +92,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.3.0/snap.svg-min.js"></script>
     <script src="https://rawgit.com/mckamey/countdownjs/master/countdown.min.js"></script>
     <!-- timer -->
+    <audio class="soundCorrect" src="assets/audio/correct.mp3" type="audio/mp3"></audio>
+    <audio class="soundWrong" src="assets/audio/wrong.mp3" type="audio/mp3"></audio>
+    <audio class="soundHover" src="assets/audio/hover.ogg" type="audio/ogg"></audio>
+    <audio class="soundOutro" src="assets/audio/generalOutro.mp3" type="audio/mp3"></audio>
+    <audio class="soundCountdown" src="assets/audio/generalCountdown.mp3" type="audio/mp3"></audio>
+    <audio class="soundEaster" src="assets/audio/easterEgg.wav" type="audio/wav"></audio>
     <script src="js/script.js"></script>
 </body>
 

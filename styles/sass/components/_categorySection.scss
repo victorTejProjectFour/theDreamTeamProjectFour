@@ -21,7 +21,7 @@
         width:100%;
         color:$colorBorderBox;
         justify-self: center;
-        background-color:#d3d3d3;
+        background-color:$colorDefault;
         border-radius: 40px;
         border:5px solid $colorBorderBox;
         &:hover:enabled,
@@ -29,8 +29,8 @@
             transform: rotate(2deg);
         }
         &.jQuestion.disabled{
-            color:#504f4f;
-            border: 5px solid #504f4f;
+            color:$colorDisabled;
+            border: 5px solid $colorDisabled;
             background-color: transparent;
             // width:40%;
             // padding: 15px;
