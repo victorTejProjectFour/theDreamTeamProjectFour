@@ -8,7 +8,7 @@ body{
         background: -ms-radial-gradient(center, ellipse cover,  $colorBackground 1%,$colorBorderBox 100%); /* IE10+ */
         background: radial-gradient(ellipse at center,  $colorBackground 1%,$colorBorderBox 100%); /* W3C */
         /* filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=$colorGeneral, endColorstr=$colorBorderBox,GradientType=1 );  *//* IE6-9 fallback on horizontal gradient */
-        color: #ffffff;
+        color: $colorDefault;
     } 
     // background-image: radial-gradient( circle at left 30%, rgba(34, 34, 34, 0.3), rgba(34, 34, 34, 0.3) 80px, rgba(34, 34, 34, 0.5) 100px, rgba(51, 51, 51, 0.5) 160px, rgba(51, 51, 51, 0.5)), linear-gradient( 215deg, transparent, transparent 100px, #222 260px, #222 320px, transparent), radial-gradient( circle at right, #111, rgba(51, 51, 51, 1));
     // background-color: #333;
@@ -37,13 +37,48 @@ button{
     position: absolute;
     top:30px;
     left:15px;
+    font-size: 3.5rem;
 }
-.scoreText{
-    font-size: 2rem;
+
+.audioContainer{
+    position: absolute;
+    top: 40vh;
+    left: 15px;
+}
+
+.audioContainerTxt{
+    position: absolute;
+    top: calc(40vh + (4rem * 3) + (2rem * 4));
+    left: 15px;
+}
+
+
+.play,.pause,.plusVolume,.minusVolume{
+    margin-bottom: 2rem;
+    cursor: pointer;
+    font-size: 4rem;
+    &:hover,
+    &:focus{
+        box-shadow:0 0 10px 10px $colorBorderBox, $colorBorderBox 0 0 20px inset;
+    }
+}
+
+.styleTextU {
+    text-transform: uppercase;
+}
+
+.hide{
+    display:none;
 }
 
 footer {
+    display: flex;
+    justify-content: center;
     text-align: center;
+    & > p{
+        width:40%;
+        cursor: pointer;
+    }
 }
 
 
