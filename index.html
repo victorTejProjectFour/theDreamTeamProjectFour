@@ -18,13 +18,11 @@
     <p class="audioContainerTxt displayVolume"></p>
     <header class="wrapper">
         <section class="headerTitle fadeIn">
-
             <h1>Question Impossible</h1>
             <p>You are the chosen one, answer all the questions and be a millionaire</p>
             <button type="submit" class="gameStart"><span>Let's Go</span></button>
         </section>
         <section class="headerLoader">
-            <p></p>
         </section>
     </header>
     <main class="wrapper">
@@ -48,6 +46,7 @@
         </section>
         <section class="questionSection">
             <!-- timer -->
+            <!-- Reference: https://codepen.io/kelvinh111/pen/doeprX -->
             <div class="cContainer">
                 <div class="cText"></div>
                 <svg id="yeah" viewbox="0 0 100 100">
@@ -66,15 +65,12 @@
                 <h3>Score:</h3>
                 <h3 class="displayScore"></h3>
             </div>
-
             <button type="submit" class="helpKit">
                 <h3>Scan</h3>
             </button>
             <h2 class="responseResult"></h2>
             <h2 class="randomQuestion"></h2>
-            <div class="multipleChoice">
-
-            </div>
+            <div class="multipleChoice"></div>
             <button type="submit" class="nextButton"><span>Next</span></button>
         </section>
         <section class="resultsSection">
@@ -87,10 +83,11 @@
         <p>Copyright ⓒ 2020 Victor Wong🐒 & Tej Lehal🧞</p>
     </footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-    <!-- <script src="js/script.js"></script> -->
+    <!-- Reference: https://codepen.io/kelvinh111/pen/doeprX -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.25.1/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.3.0/snap.svg-min.js"></script>
     <script src="https://rawgit.com/mckamey/countdownjs/master/countdown.min.js"></script>
+    <script src="js/script.js"></script>
     <!-- timer -->
     <audio class="soundCorrect" src="assets/audio/correct.mp3" type="audio/mp3"></audio>
     <audio class="soundWrong" src="assets/audio/wrong.mp3" type="audio/mp3"></audio>
@@ -99,7 +96,6 @@
     <audio class="soundCountdown" src="assets/audio/generalCountdown.mp3" type="audio/mp3"></audio>
     <audio class="soundEndTimer" src="assets/audio/timesUp.mp3" type="audio/mp3"></audio>
     <audio class="soundEaster" src="assets/audio/easterEgg.wav" type="audio/wav"></audio>
-    <script src="js/script.js"></script>
 </body>
 
 </html>

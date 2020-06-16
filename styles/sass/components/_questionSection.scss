@@ -4,11 +4,22 @@
     justify-content: center;
     align-items: center;
 }
+
 .randomQuestion {
     font-size: 4rem;
     text-align: center;
     line-height: 6rem;
     color:$colorHeader;
+    @include responsiveMedia(smallTablet){
+        font-size: 2.7rem;
+        line-height: 3rem;
+        margin:5vh 0;
+    }
+    @include responsiveMedia(phone){
+        font-size: 2rem;
+        line-height: 2.3rem;
+        margin:5vh 0;
+    }
 }
 
 .multipleChoice {
@@ -25,9 +36,13 @@
         background-color: $colorCorrect;
         color:$colorHeader;
     }
-    
+    @include responsiveMedia(smallTablet){
+        display: initial;
+    }
+    @include responsiveMedia(phone){
+        display: initial;
+    }
 }
-
 
 .multipleChoiceAnswer {
     font-size: 3rem;
@@ -42,12 +57,27 @@
         box-shadow:0 0 10px 7px $colorBorderBox;
         border:5px solid $colorGeneral;
     }
-    
+    @include responsiveMedia(smallTablet){
+        font-size: 2.4rem;
+        line-height: 2.3rem;
+    }
+    @include responsiveMedia(phone){
+        font-size: 2rem;
+        line-height: 1.7rem;
+    }
 }
 
 .responseResult {
     font-size: 3rem;
     text-align: center;
+    @include responsiveMedia(smallTablet){
+        margin-bottom: 0px;
+        margin-top: 80px;
+    }
+    @include responsiveMedia(phone){
+        margin-bottom: 0px;
+        margin-top: 75px;
+    }
 }
 
 .helpKit {
@@ -83,10 +113,19 @@
         }
         cursor: default;
     }
+    @include responsiveMedia(smallTablet){
+        top:2vh;
+        right: initial;
+    }
+    @include responsiveMedia(phone){
+        top:2vh;
+        right: initial;
+    }
+
 }
 
-
 /* timer */
+// Reference: https://codepen.io/kelvinh111/pen/doeprX
 .cContainer {
     position: absolute;
     width: 100px;
@@ -105,5 +144,18 @@
     svg {
       width: 100%;
     }
+    @include responsiveMedia(smallTablet){
+        width:70px;
+        .cText {
+            font-size: 1.4rem;
+        }
+    }
+    @include responsiveMedia(phone){
+        width:60px;
+        .cText {
+            font-size: 1.2rem;
+        }
+    }
+
   }
   

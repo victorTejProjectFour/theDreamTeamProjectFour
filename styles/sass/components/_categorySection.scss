@@ -7,6 +7,15 @@
 .categoryName {
     font-size: 10rem;
     text-align: center;
+    @include responsiveMedia(smallTablet){
+        font-size:5rem;
+        margin-bottom: 30px;
+    }
+    @include responsiveMedia(phone){
+        font-size:3.5rem;
+        margin-bottom: 20px;
+    }
+
 }
 
 .questionButtons {
@@ -16,6 +25,7 @@
     grid-template-rows: auto; 
     column-gap: 10px;
     row-gap: 10px;
+    
     button{
         font-size: 5rem;
         width:100%;
@@ -32,5 +42,19 @@
             background-color: $colorDisabled;
             }
     }
-   
+    @include responsiveMedia(smallTablet){
+        column-gap: 4px;
+        row-gap: 4px;
+        button{
+            font-size: 3.2rem;
+        }
+    }
+    @include responsiveMedia(phone){
+        column-gap: 2px;
+        row-gap: 2px;
+        button{
+            font-size: 2.8rem;
+        }
+    }
+
 }
