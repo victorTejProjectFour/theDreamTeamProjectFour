@@ -195,7 +195,7 @@ triviaApp.scoreCount = function (points) {
 
 // Create a function that initialize the timer
 triviaApp.initTimer = function () {
-    
+
     let now = moment();
     let end = moment().add({ seconds: 10 });
     let diff = end.diff(now);
@@ -291,7 +291,7 @@ triviaApp.easterEggs = function () {
             $('footer > p').html('Subscribe and Follow us! We will give you Free points!🐒🧞');
         } else if ($('footer > p').text() == 'Subscribe and Follow us! We will give you Free points!🐒🧞') {
             $('footer > p').html('You got a Key!');
-            
+
         } else {
             $('footer > p').html('Copyright ⓒ 2020 Victor Wong🐒 & Tej Lehal🧞');
         }
