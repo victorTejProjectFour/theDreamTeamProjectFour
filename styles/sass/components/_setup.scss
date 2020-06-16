@@ -8,8 +8,6 @@ a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,c
 
 .visuallyHidden:not(:focus):not(:active) { position: absolute; width: 1px; height: 1px; margin: -1px;border: 0;padding: 0;white-space: nowrap;clip-path: inset(100%);clip: rect(00 0 0);overflow: hidden;}
 
-img{max-width: 100%}
-
 html {
     font-size: 62.5%;
   }
@@ -20,17 +18,16 @@ html {
     max-width: 1200px;
     width: 90%;
     margin: 0 auto;
+    @include responsiveMedia(phone){
+      width: 95%;
+    }
   }
   body,
-  ul,
   h1,
   h2,
   h3,
   p,
-  li,
-  a,
-  img,
-  form {
+  a{
     margin: 0;
     padding: 0;
   }

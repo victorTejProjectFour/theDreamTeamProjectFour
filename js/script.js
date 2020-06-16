@@ -6,11 +6,11 @@ triviaApp.apiCatUrl = 'https://opentdb.com/api_category.php';
 triviaApp.allQuestions = [];
 triviaApp.totalScore = 0;
 triviaApp.volume = 0.2;
-triviaApp.timer;
 
-// triviaApp.getTriviaUrl = function (userCategory, userDifficulty) {
+// Call ajax request
 triviaApp.getTriviaUrl = function () {
     // 13,24,25,29,30
+    // The following numbers can't give 9 questions
     const userCategory = [9, 10, 11, 12, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 26, 27, 28, 31, 32];
     const randomIndex = (Math.floor(Math.random() * userCategory.length));
     $.ajax({
@@ -30,20 +30,61 @@ triviaApp.getTriviaUrl = function () {
     })
 }
 
-
-
+// Adding boolean value to each object in the array allQuestions
 triviaApp.addBoolean = function () {
     triviaApp.allQuestions.forEach(function (item) {
         item.boxStatus = true;
     })
 }
+// Create a function that starts the game
+triviaApp.startGame = function () {
 
-// Create a Function that will have a parameter of an obj 
+    $('.categorySection,.questionSection,.resultsSection').hide();
+    $('.headerTitle').hide();
+    $('.headerLoader').show();
+    $('audio').prop("volume", triviaApp.volume);
+    setTimeout(function () {
+        $('.headerLoader').hide();
+        $('.headerTitle').show();
+    }, 3000);
+    $('.gameStart').on('click', function () {
+        triviaApp.displayCategories();
+        $('header').hide();
+    });
+}
+
+// Create a function that displays the Categories
+triviaApp.displayCategories = function () {
+    $('.categorySection').show();
+    let category = triviaApp.allQuestions[0].category;
+    $('.categoryName').text(category);
+    $('.soundCountdown').trigger('play');
+    triviaApp.checkQuestionButton();
+}
+
+// Create a function that checks user's question choice
+triviaApp.checkQuestionButton = function () {
+    $('.jQuestion').on('click', function () {
+        triviaApp.initTimer();
+        triviaApp.question = {};
+        $('.categorySection').hide();
+        $('.nextButton').css('visibility', 'hidden');
+        let dataIndex = $(this).data("index");
+        triviaApp.allQuestions[dataIndex].points = parseInt($(this).text());
+        triviaApp.allQuestions[dataIndex].boxStatus = false;
+
+        $(`*[data-index=${dataIndex}]`).prop('disabled', true);
+        $(`*[data-index=${dataIndex}]`).addClass('disabled');
+        triviaApp.question = { ...triviaApp.allQuestions[dataIndex] };
+        triviaApp.displayQuestions(triviaApp.question);
+        $('.questionSection').show();
+    })
+}
+
+// Create a Function that will have a parameter of an obj
 triviaApp.displayQuestions = function (obj) {
     $('.multipleChoice').empty();
     $('.responseResult').css('visibility', 'hidden');
-    triviaApp.initTimer();
-    /* let timer = new Countdown({seconds: 5}, $(".c-container")); */
     const choices = [...obj.incorrect_answers];
     let answerRandomIndex = Math.floor(Math.random() * (4 - 1)) + 1;
     choices.splice(answerRandomIndex - 1, 0, obj.correct_answer);
@@ -55,8 +96,9 @@ triviaApp.displayQuestions = function (obj) {
     triviaApp.checkUserAnswer(obj);
 }
 
+// Create a function that will check users answer
 triviaApp.checkUserAnswer = function (obj) {
-    triviaApp.helping(obj);
+    triviaApp.questionHelper(obj);
     $('.multipleChoiceAnswer').on('click', function () {
         $('.multipleChoiceAnswer').prop('disabled', true);
         let userAnswer = $(this).html();
@@ -76,35 +118,7 @@ triviaApp.checkUserAnswer = function (obj) {
     })
 }
 
-/* These are the special characters need to replace */
-triviaApp.translate = function (obj, item) {
-    return item == obj.correct_answer || item == obj.correct_answer.replace(/&quot;/g, '\"').replace(/&#039;/g, "\'").replace(/&amp;/g, '\&').replace(/&ntilde;/g, 'ñ').replace(/&aacute;/g, 'á').replace(/&oacute;/g, 'ó').replace(/&Delta;/g, 'Δ').replace(/&Uuml;/g, 'Ü');
-}
-
-triviaApp.showAnswer = function (obj) {
-    for (let i = 0; i < 4; i++) {
-        if (triviaApp.translate(obj, $(`.answer${i}`).text())) {
-            $(`.answer${i}`).addClass('correct');
-        } else {
-            $(`.answer${i}`).addClass('incorrect');
-        }
-    }
-}
-
-triviaApp.helping = function (obj) {
-    $('.helpKit').on('click', function () {
-        $('.helpKit').addClass('disableHelpKit').prop('disabled', true);
-        triviaApp.showAnswer(obj);
-    })
-}
-
-triviaApp.resetAudio = function (audio) {
-    $(audio).trigger('pause');
-    $(audio).prop("currentTime", 0);
-}
-
-
-
+// Create a function that check if user click the next button, and decide to bring user back to category or result section
 triviaApp.checkCategory = function (obj) {
     $('.nextButton').on('click', function () {
         clearInterval(triviaApp.timer);
@@ -128,44 +142,7 @@ triviaApp.checkCategory = function (obj) {
     })
 }
 
-triviaApp.scoreCount = function (points) {
-    triviaApp.totalScore += points;
-    $(".displayScore,.totalScore").text(triviaApp.totalScore);
-}
-
-
-// Create a function that displays the Categories
-triviaApp.displayCategories = function () {
-    $('.categorySection').show();
-    let category = triviaApp.allQuestions[0].category;
-    $('.categoryName').text(category);
-    $('.soundCountdown').trigger('play');
-    triviaApp.checkQuestionButton();
-}
-
-
-triviaApp.checkQuestionButton = function () {
-    $('.jQuestion').on('click', function () {
-        triviaApp.question = {};
-        console.log(triviaApp.question);
-        // console.log(`${data - index}`);
-        $('.categorySection').hide();
-        $('.nextButton').css('visibility', 'hidden');
-        let dataIndex = $(this).data("index");
-        // console.log($(this).text());
-        triviaApp.allQuestions[dataIndex].points = parseInt($(this).text());
-        triviaApp.allQuestions[dataIndex].boxStatus = false;
-
-        $(`*[data-index=${dataIndex}]`).prop('disabled', true);
-        $(`*[data-index=${dataIndex}]`).addClass('disabled');
-        triviaApp.question = { ...triviaApp.allQuestions[dataIndex] };
-        triviaApp.displayQuestions(triviaApp.question);
-        $('.questionSection').show();
-    })
-}
-
-
-
+// Create a function that will show user's result
 triviaApp.displayResult = function () {
     $('.categorySection').hide();
     $('.resultsSection').show();
@@ -177,87 +154,48 @@ triviaApp.displayResult = function () {
     })
 }
 
-triviaApp.startGame = function () {
-    $('.categorySection,.questionSection,.resultsSection').hide();
-    $('.headerTitle').hide();
-    $('.headerLoader').show();
-    $('audio').prop("volume", triviaApp.volume);
-    setTimeout(function () {
-        console.log('hell1o');
-        $('.headerLoader').hide();
-        $('.headerTitle').show();
-    }, 3000);
-    $('.gameStart').on('click', function () {
-        triviaApp.displayCategories();
-        $('header').hide();
-    });
+
+// Misc.
+
+/* These are the special characters need to replace */
+triviaApp.translate = function (obj, item) {
+    return item == obj.correct_answer || item == obj.correct_answer.replace(/&quot;/g, '\"').replace(/&#039;/g, "\'").replace(/&amp;/g, '\&').replace(/&ntilde;/g, 'ñ').replace(/&aacute;/g, 'á').replace(/&oacute;/g, 'ó').replace(/&Delta;/g, 'Δ').replace(/&Uuml;/g, 'Ü').replace(/&Omicron;/g, 'Ο');
 }
 
-
-
-/* timer */
-/* https://codepen.io/kelvinh111/pen/doeprX */
-/* class Util {
-    static convertMS(ms) {
-        let s;
-
-        s = Math.floor(ms / 1000);
-        return {
-            s: s
-        };
-    };
-
-    static addZ(n) {
-        if (!n) return "00";
-        return (n < 10 ? '0' : '') + n;
+// Create a function that will color the answer
+triviaApp.showAnswer = function (obj) {
+    for (let i = 0; i < 4; i++) {
+        if (triviaApp.translate(obj, $(`.answer${i}`).text())) {
+            $(`.answer${i}`).addClass('correct');
+        } else {
+            $(`.answer${i}`).addClass('incorrect');
+        }
     }
+}
 
-    static formatTime(obj) {
-        return Util.addZ(obj.s) + "S";
-    }
-} */
+// Create a function that give users hint
+triviaApp.questionHelper = function (obj) {
+    $('.helpKit').on('click', function () {
+        $('.helpKit').addClass('disableHelpKit').prop('disabled', true);
+        triviaApp.showAnswer(obj);
+    })
+}
 
-/* class Countdown {
-    constructor(endTime, $element) {
-        this.now = moment();
-        this.end = moment().add(endTime);
-        this.diff = this.end.diff(this.now);
-        this.$el = $element;
-        this.svg = Snap(this.$el.find("svg")[0]);
-        this.progress = this.svg.select("#progress");
-        this.$txt = this.$el.find(".c-text");
-        this.initCircle();
-        this.initTimer();
-    }
-    
-    initCircle() {
-        let self = this;
-        self.progress.attr({
-            strokeDasharray: '0, 301.44'
-        });
-        Snap.animate(0, 301.44, function(value) {
-            self.progress.attr({
-                'stroke-dasharray': value + ', 301.44'
-            });
-        }, self.diff);
-    }
-    
-    initTimer() {
-        let self = this;
-        self.timer = setInterval(function() {
-            self.now = moment();
-            self.diff = self.end.diff(self.now);
+// Create a function to reset Audio
+triviaApp.resetAudio = function (audio) {
+    $(audio).trigger('pause');
+    $(audio).prop("currentTime", 0);
+}
 
-            if (self.diff > 0) {
-                self.$txt.text(self.diff);
-            } else {
-                self.$txt.text("Time's up!!!");
-                clearInterval(self.timer);
-            }
-        }, 200);
-    }
-} */
+// Create a function to count the user's score
+triviaApp.scoreCount = function (points) {
+    triviaApp.totalScore += points;
+    $(".displayScore,.totalScore").text(triviaApp.totalScore);
+}
+
+// Create a function that initialize the timer
 triviaApp.initTimer = function () {
+    
     let now = moment();
     let end = moment().add({ seconds: 10 });
     let diff = end.diff(now);
@@ -277,13 +215,10 @@ triviaApp.initTimer = function () {
         now = moment();
         diff = (end.diff(now)) / 1000;
         let counter = Math.floor(diff);
-        console.log(diff);
         if ($('.multipleChoiceAnswer').prop('disabled') == true) {
-            triviaApp.scoreCount(counter);
             diff = 0;
             return clearInterval(timer);
         } else if (diff > 0) {
-            console.log('now', now);
             $txt.text(counter);
         } else {
             $('.multipleChoiceAnswer').prop('disabled', true);
@@ -296,11 +231,11 @@ triviaApp.initTimer = function () {
             diff = 0;
             return clearInterval(timer);
         }
-    }, 200);
+    }, 10);
 }
 
-/* timer */
 
+// Create a function that initialize the audio files
 triviaApp.initAudio = function () {
     $('.play').on('click', function () {
         $('.soundCountdown').prop('muted', true);
@@ -337,13 +272,14 @@ triviaApp.initAudio = function () {
         $('audio').prop("volume", triviaApp.volume);
     })
 
-    $('.multipleChoiceAnswer,.nextButton,.restartButton,.gameStart,.jQuestion').mouseenter(function () {
+    $('.multipleChoiceAnswer,.nextButton,.restartButton,.gameStart,.jQuestion,.helpKit').mouseenter(function () {
         $('.soundHover').prop('currentTime', 0);
         $('.soundHover').trigger('play');
     })
 
 }
 
+// Create a function that listen to the easter egg events
 triviaApp.easterEggs = function () {
     $('footer > p').one('click', function () {
         triviaApp.scoreCount(500);
@@ -351,9 +287,11 @@ triviaApp.easterEggs = function () {
     });
 
     $('footer > p').on('click', function () {
-        /* $('div:contains("test")') */
         if ($('footer > p').text() == 'Copyright ⓒ 2020 Victor Wong🐒 & Tej Lehal🧞') {
             $('footer > p').html('Subscribe and Follow us! We will give you Free points!🐒🧞');
+        } else if ($('footer > p').text() == 'Subscribe and Follow us! We will give you Free points!🐒🧞') {
+            $('footer > p').html('You got a Key!');
+            
         } else {
             $('footer > p').html('Copyright ⓒ 2020 Victor Wong🐒 & Tej Lehal🧞');
         }
@@ -366,17 +304,24 @@ triviaApp.easterEggs = function () {
     });
 }
 
+// Create an init function
 triviaApp.init = () => {
     triviaApp.getTriviaUrl();
     triviaApp.startGame();
     triviaApp.initAudio();
     triviaApp.easterEggs();
 }
+
+// Set document ready
 $(document).ready(triviaApp.init());
 
 
 
 // future upgrade 
+// 1. putting in 3 categories in ajax call
+// 2. more easter egg event
+// 3. fire base implementation
+// 4. timerfix
 
 //Extracting all 9 questions
 

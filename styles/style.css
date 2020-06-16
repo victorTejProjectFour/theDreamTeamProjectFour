@@ -1,7 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Walter+Turncoat");
-/* only Cata */
-/* #ffffffd1; */
 a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, body, canvas, caption, center, cite, code, dd, del, details, dfn, div, dl, dt, em, embed, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html, i, iframe, img, ins, kbd, label, legend, li, mark, menu, nav, object, ol, output, p, pre, q, ruby, s, samp, section, small, span, strike, strong, sub, summary, sup, table, tbody, td, tfoot, th, thead, time, tr, tt, u, ul, var, video {
   margin: 0;
   padding: 0;
@@ -239,10 +237,6 @@ textarea {
   overflow: hidden;
 }
 
-img {
-  max-width: 100%;
-}
-
 html {
   font-size: 62.5%;
 }
@@ -257,16 +251,18 @@ body {
   margin: 0 auto;
 }
 
+@media (max-width: 480px) {
+  .wrapper {
+    width: 95%;
+  }
+}
+
 body,
-ul,
 h1,
 h2,
 h3,
 p,
-li,
-a,
-img,
-form {
+a {
   margin: 0;
   padding: 0;
 }
@@ -320,16 +316,53 @@ button {
   font-size: 3.5rem;
 }
 
+@media (max-width: 768px) {
+  .scoreContainer {
+    font-size: 2.7rem;
+    left: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .scoreContainer {
+    font-size: 2.2rem;
+  }
+}
+
 .audioContainer {
   position: absolute;
   top: 40vh;
   left: 15px;
 }
 
+@media (max-width: 1200px) {
+  .audioContainer {
+    position: absolute;
+    top: 78vh;
+    left: 15px;
+  }
+}
+
 .audioContainerTxt {
   position: absolute;
   top: calc(40vh + (4rem * 3) + (2rem * 4));
   left: 15px;
+}
+
+@media (max-width: 1200px) {
+  .audioContainerTxt {
+    position: absolute;
+    top: calc(78vh + (3rem * 3) + (2rem * 2));
+    left: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .audioContainerTxt {
+    position: absolute;
+    top: calc(78vh + (2.2rem * 3) + (2rem * 2));
+    left: 15px;
+  }
 }
 
 .play, .pause, .plusVolume, .minusVolume {
@@ -341,6 +374,24 @@ button {
 .play:hover, .play:focus, .pause:hover, .pause:focus, .plusVolume:hover, .plusVolume:focus, .minusVolume:hover, .minusVolume:focus {
   -webkit-box-shadow: 0 0 10px 10px #1D3557, #1D3557 0 0 20px inset;
           box-shadow: 0 0 10px 10px #1D3557, #1D3557 0 0 20px inset;
+}
+
+@media (max-width: 1200px) {
+  .play, .pause, .plusVolume, .minusVolume {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .play, .pause, .plusVolume, .minusVolume {
+    font-size: 2.4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .play, .pause, .plusVolume, .minusVolume {
+    font-size: 2.2rem;
+  }
 }
 
 .styleTextU {
@@ -362,8 +413,27 @@ footer {
 }
 
 footer > p {
+  /* width 40% is for easter egg */
   width: 40%;
   cursor: pointer;
+}
+
+@media (max-width: 1200px) {
+  footer > p {
+    width: 75%;
+  }
+}
+
+@media (max-width: 768px) {
+  footer > p {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  footer > p {
+    width: 80%;
+  }
 }
 
 header {
@@ -387,14 +457,50 @@ header h1 {
   font-size: 10rem;
 }
 
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 7rem;
+  }
+}
+
+@media (max-width: 480px) {
+  header h1 {
+    font-size: 5rem;
+  }
+}
+
 header p {
   font-size: 3.5rem;
   font-family: 'Walter Turncoat', cursive;
   line-height: 4rem;
 }
 
+@media (max-width: 768px) {
+  header p {
+    font-size: 2.7rem;
+  }
+}
+
+@media (max-width: 480px) {
+  header p {
+    font-size: 2.1rem;
+  }
+}
+
 header button.gameStart {
   margin-top: 160px;
+}
+
+@media (max-width: 768px) {
+  header button.gameStart {
+    margin-top: 60px;
+  }
+}
+
+@media (max-width: 480px) {
+  header button.gameStart {
+    margin-top: 40px;
+  }
 }
 
 .headerTitle {
@@ -467,7 +573,6 @@ header button.gameStart {
   }
 }
 
-/* test */
 .fadeIn {
   opacity: 1;
   -webkit-animation-name: fadeInOpacity;
@@ -559,7 +664,6 @@ header button.gameStart {
   opacity: 0;
   -webkit-transition-delay: 0s;
           transition-delay: 0s;
-  /* background-color: #ffffff; */
 }
 
 .gameStart:hover span, .nextButton:hover span {
@@ -575,6 +679,28 @@ header button.gameStart {
   transition: -webkit-transform 0.75s cubic-bezier(0.7, 0, 0.3, 1) 0.2s;
   transition: transform 0.75s cubic-bezier(0.7, 0, 0.3, 1) 0.2s;
   transition: transform 0.75s cubic-bezier(0.7, 0, 0.3, 1) 0.2s, -webkit-transform 0.75s cubic-bezier(0.7, 0, 0.3, 1) 0.2s;
+}
+
+@media (max-width: 1200px) {
+  .gameStart, .nextButton {
+    width: 80%;
+  }
+}
+
+@media (max-width: 480px) {
+  .gameStart, .nextButton {
+    width: 70%;
+  }
+}
+
+@media (max-width: 480px) {
+  .nextButton {
+    padding: 10px;
+    margin-top: 5vh;
+  }
+  .nextButton:before {
+    top: 0;
+  }
 }
 
 .categorySection {
@@ -596,6 +722,20 @@ header button.gameStart {
 .categoryName {
   font-size: 10rem;
   text-align: center;
+}
+
+@media (max-width: 768px) {
+  .categoryName {
+    font-size: 5rem;
+    margin-bottom: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .categoryName {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+  }
 }
 
 .questionButtons {
@@ -631,6 +771,28 @@ header button.gameStart {
   background-color: #504f4f;
 }
 
+@media (max-width: 768px) {
+  .questionButtons {
+    -webkit-column-gap: 4px;
+            column-gap: 4px;
+    row-gap: 4px;
+  }
+  .questionButtons button {
+    font-size: 3.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .questionButtons {
+    -webkit-column-gap: 2px;
+            column-gap: 2px;
+    row-gap: 2px;
+  }
+  .questionButtons button {
+    font-size: 2.8rem;
+  }
+}
+
 .questionSection {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -652,6 +814,22 @@ header button.gameStart {
   text-align: center;
   line-height: 6rem;
   color: #fff5d7;
+}
+
+@media (max-width: 768px) {
+  .randomQuestion {
+    font-size: 2.7rem;
+    line-height: 3rem;
+    margin: 5vh 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .randomQuestion {
+    font-size: 2rem;
+    line-height: 2.3rem;
+    margin: 5vh 0;
+  }
 }
 
 .multipleChoice {
@@ -676,6 +854,18 @@ header button.gameStart {
   color: #fff5d7;
 }
 
+@media (max-width: 768px) {
+  .multipleChoice {
+    display: initial;
+  }
+}
+
+@media (max-width: 480px) {
+  .multipleChoice {
+    display: initial;
+  }
+}
+
 .multipleChoiceAnswer {
   font-size: 3rem;
   width: 100%;
@@ -693,9 +883,37 @@ header button.gameStart {
   border: 5px solid #A8DADC;
 }
 
+@media (max-width: 768px) {
+  .multipleChoiceAnswer {
+    font-size: 2.4rem;
+    line-height: 2.3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .multipleChoiceAnswer {
+    font-size: 2rem;
+    line-height: 1.7rem;
+  }
+}
+
 .responseResult {
   font-size: 3rem;
   text-align: center;
+}
+
+@media (max-width: 768px) {
+  .responseResult {
+    margin-bottom: 0px;
+    margin-top: 80px;
+  }
+}
+
+@media (max-width: 480px) {
+  .responseResult {
+    margin-bottom: 0px;
+    margin-top: 75px;
+  }
 }
 
 .helpKit {
@@ -738,6 +956,20 @@ header button.gameStart {
   color: #1D3557;
 }
 
+@media (max-width: 768px) {
+  .helpKit {
+    top: 2vh;
+    right: initial;
+  }
+}
+
+@media (max-width: 480px) {
+  .helpKit {
+    top: 2vh;
+    right: initial;
+  }
+}
+
 /* timer */
 .cContainer {
   position: absolute;
@@ -759,6 +991,24 @@ header button.gameStart {
 
 .cContainer svg {
   width: 100%;
+}
+
+@media (max-width: 768px) {
+  .cContainer {
+    width: 70px;
+  }
+  .cContainer .cText {
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .cContainer {
+    width: 60px;
+  }
+  .cContainer .cText {
+    font-size: 1.2rem;
+  }
 }
 
 .resultsSection {
@@ -788,9 +1038,24 @@ header button.gameStart {
   font-size: 12rem;
 }
 
+@media (max-width: 480px) {
+  .resultsSection h2 {
+    font-size: 6rem;
+  }
+  .resultsSection h2:hover, .resultsSection h2:focus {
+    font-size: 7rem;
+  }
+}
+
 .totalScore {
   font-size: 10rem;
   margin-bottom: 50px;
+}
+
+@media (max-width: 480px) {
+  .totalScore {
+    font-size: 7rem;
+  }
 }
 
 .restartButton {
@@ -819,4 +1084,10 @@ header button.gameStart {
           transform: scale(1.06);
   -webkit-transition: all 0.4s ease-in-out;
   transition: all 0.4s ease-in-out;
+}
+
+@media (max-width: 1200px) {
+  .restartButton {
+    width: 80%;
+  }
 }
